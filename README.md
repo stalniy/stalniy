@@ -17,4 +17,4 @@ I'm a Full Stack Open Source developer, building apps, managing different insfra
 - 🔭 I’m currently working on [CASL](https://casl.js.org) and other interesting projects
 - 📫 If you like my work and want to support, please do this on [Open Collective](https://opencollective.com/casljs)
 
-[![Serhii Stotskyi's GitHub stats](https://github-readme-stats.vercel.app/api?username=stalniy)](https://github-readme-stats.vercel.app/api?username=stalniy)
+[![Serhii Stotskyi's GitHub stats](./profile/stats.svg)
