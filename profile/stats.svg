@@ -9,7 +9,7 @@
         aria-labelledby="descId"
       >
         <title id="titleId">Serhii Stotskyi's GitHub Stats, Rank: A+</title>
-        <desc id="descId">Total Stars Earned: 7895, Total Commits  (last year) : 916, Total PRs: 1138, Total Issues: 558, Contributed to (last year): 20</desc>
+        <desc id="descId">Total Stars Earned: 7896, Total Commits  (last year) : 916, Total PRs: 1138, Total Issues: 558, Contributed to (last year): 20</desc>
         <style>
           .header {
             font: 600 18px 'Segoe UI', Ubuntu, Sans-Serif;
@@ -73,7 +73,7 @@
         stroke-dashoffset: 251.32741228718345;
       }
       to {
-        stroke-dashoffset: 4.42849813652821;
+        stroke-dashoffset: 4.428431785730755;
       }
     }
   
