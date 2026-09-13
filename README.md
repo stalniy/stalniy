@@ -19,6 +19,6 @@ I build AI agents that ship software. Open source engineer specializing in agent
 ![Postgres](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 
-[Support my open source work ↗](https://opencollective.com/casljs)
+[LinkedIn ↗](https://www.linkedin.com/in/serhii-stotskyi-b747ba23/) · [Support my open source work ↗](https://opencollective.com/casljs)
 
 ![Serhii Stotskyi's GitHub stats](./profile/stats.svg)
