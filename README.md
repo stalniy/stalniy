@@ -9,6 +9,7 @@ I build AI agents that ship software. Open source engineer specializing in agent
 ![Node](https://aleen42.github.io/badges/src/node.svg)
 ![JavaScript](https://aleen42.github.io/badges/src/javascript.svg)
 ![TypeScript](https://aleen42.github.io/badges/src/typescript.svg)
+![ReactJS](https://aleen42.github.io/badges/src/react.svg)
 ![Vue](https://aleen42.github.io/badges/src/vue.svg)
 ![Angular](https://aleen42.github.io/badges/src/angular.svg)
 
