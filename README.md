@@ -1,6 +1,10 @@
-### Hi there 👋
+### Hi, I'm Serhii 👋
 
-I'm a Full Stack Open Source developer, building apps, managing different insfrastructure and sometimes other people.
+I build AI agents that ship software. Open source engineer specializing in agent development and turning AI tools into reliable engineering workflows.
+
+- ☁️ **[Akash Network](https://github.com/akash-network/console)** — building the console and infrastructure that make decentralized compute accessible.
+- 🤖 **Agentic workflows with Sandcastle** — orchestrating coding and review agents from task to PR, with automated tests and human checkpoints.
+- 🔐 **[CASL](https://casl.js.org)** — creator of the authorization library that helps developers define what users can do.
 
 ![Node](https://aleen42.github.io/badges/src/node.svg)
 ![JavaScript](https://aleen42.github.io/badges/src/javascript.svg)
@@ -14,7 +18,6 @@ I'm a Full Stack Open Source developer, building apps, managing different insfra
 ![Postgres](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 
-- 🔭 I’m currently working on [CASL](https://casl.js.org) and other interesting projects
-- 📫 If you like my work and want to support, please do this on [Open Collective](https://opencollective.com/casljs)
+[Support my open source work ↗](https://opencollective.com/casljs)
 
-[![Serhii Stotskyi's GitHub stats](./profile/stats.svg)
+![Serhii Stotskyi's GitHub stats](./profile/stats.svg)
