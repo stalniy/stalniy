@@ -4,7 +4,7 @@ I'm **staff-level software engineer** and open source creator with **18+ years**
 
 - 🤖 **Agentic workflows with Sandcastle** — orchestrating coding and review agents from task to PR, with automated tests and human checkpoints.
 - 🔐 **[CASL](https://casl.js.org)** — creator of the authorization library that helps developers define what users can do.
-- ☁️ **[Akash Network](https://github.com/akash-network/console)** — built the console and infrastructure that make decentralized compute accessible.
+- ☁️ **[Akash Network](https://github.com/akash-network/console)** — built the console, chain-sdk and infrastructure that make decentralized compute accessible.
 
 ![Node](https://aleen42.github.io/badges/src/node.svg)
 ![JavaScript](https://aleen42.github.io/badges/src/javascript.svg)
