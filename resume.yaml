@@ -2,7 +2,7 @@ $schema: "https://raw.githubusercontent.com/jsonresume/jsonresume.org/master/pac
 basics:
   name: "Serhii Stotskyi"
   email: "sergiy.stotskiy@gmail.com"
-  label: "Senior full-stack engineer • Product & Platform"
+  label: "Staff / Senior Full-stack engineer • Product & Platform Engineering"
   profiles:
     - network: github
       url: https://github.com/stalniy
@@ -15,12 +15,11 @@ basics:
       username: sstotsky
   location:
     countryCode: PL
-    city: Cracow
+    city: Kraków
   summary: |-
-    I'm a staff-level software engineer with **18+ years** of experience in software development, including 5 years of building and managing engineering teams of 3–7 people alongside hands-on development.
+    Staff-level software engineer with **18+ years** of experience in software development, including 5 years of building and managing engineering teams of 3–7 people alongside hands-on development.
 
-    My broad expertise across technologies allows me to quickly bring value to teams, products, and businesses.
-    Having worked in both established enterprises and fast-moving startups, I bring structure to complexity and predictability to software delivery without sacrificing agility.
+    I specialize in product and platform engineering, taking ownership from discovery and architecture through implementation, production rollout, and monitoring. My experience spans SaaS, cloud infrastructure, distributed systems, developer tooling, and application security.
 
     I use **AI agents** daily, developing custom skills, workflows, and deterministic verification mechanisms to accelerate delivery without compromising software quality.
 
@@ -55,7 +54,7 @@ work:
       - |-
         **Implemented security protection** against supply-chain attacks, code vulnerabilities, and exposed secrets as AI use in development grew by integrating Snyk, Socket, CodeQL, and Secretlint into CI.
       - |-
-        **Implemented security protection** in runtime of all Node.js microservices by utilizing Node.js permission system. Worked consistently in both dev and prod environments.
+        **Implemented runtime security controls** in all Node.js microservices by utilizing Node.js permission system. Worked consistently in both dev and prod environments.
       - |-
         **Increased weekly deployments from 16 to 40** and reduced CI wait time by an estimated 2.6 hours per week by replacing Webpack with tsup, Jest with Vitest, and adding GitHub merge queue support.
         Implemented the migration manually on the first app, then used AI to help spread it out over other apps.
@@ -69,7 +68,7 @@ work:
       - |-
         **Improved production stability** by migrating 8 microservices to strict TypeScript over several months, including shared packages.
         Started with smaller services and enabled strict checking incrementally in larger applications, catching more errors at build time while feature development continued.
-        Production incidents rate declined after the migration.
+        Production incident rate declined after the migration.
       - |-
         **Restored a customer's access to deployment logs** after reproducing a WebSocket failure triggered by an oversized cookie. Debugged the issue directly with the customer, tested and deployed the fix, and had the customer confirm that logs worked again.
       - |-
@@ -150,11 +149,11 @@ work:
         **Enabled analysts to define object types, model relationships and inheritance, and visually investigate connections between records**.
         Designed and documented the frontend and backend architecture with input from the CTO, and built a working Node.js application that served as the reference implementation for later migration to C#.
       - |-
-        **Discussed and agreed with each team member an individual development plan** by meeting with on one-on-one, assessing their performance, and agreeing together on what they would work on next.
+        **Discussed and agreed with each team member an individual development plan** through one-on-one meetings, assessing their performance, and agreeing together on what they would work on next.
       - |-
         **Established development process: planning, review, testing for each sprint.**
         Led daily standups, introduced sprint planning and retrospectives, configured Jira automation,
-         expanded code review from the team lead alone to developers reviewing each other's changesr, and established a testing strategy.
+         expanded code review from the team lead alone to developers reviewing each other's changes, and established a testing strategy.
       - |-
         **Enabled relationship analysis for a customer using the system as a CRM** by implementing analytics in C# that counted relationships between objects matching specified conditions.
     skills: [ts-js, C#, Vue.js, GraphQL, PostgreSQL, ElasticSearch, RabbitMQ, GitLab CI, Ansible, Jest, TestCafe]
@@ -198,7 +197,7 @@ work:
         **Gave the Backbone legacy client a clearer structure** by introducing Rivets components and adapting the existing application to use them.
       - |-
         **Enabled code reuse across the web and hybrid mobile app** by designing an Angular 2 and Ionic 2 architecture with a shared service layer and shared UI components.
-        I chose that approach after team prototyped alternatives against its web, iOS, and Android requirements.
+        I chose that approach after the team prototyped alternatives against its web, iOS, and Android requirements.
       - |-
         **Enabled the team to deliver updates to the hybrid app's web code and assets without waiting for a new app store review** by integrating Microsoft CodePush.
         For releases that required store review, implemented the build and submission workflows for both Android and iOS using fastlane.
@@ -240,7 +239,7 @@ work:
     startDate: "2013-08"
     endDate: "2014-10"
     description: |-
-      A SaaS management platform for IP telophony over cloud.
+      A SaaS management platform for IP telephony over cloud.
     summary: |
       Owned frontend architecture and development for a white-label cloud telephony platform with separate applications for company administrators, providers, and users.
       **Worked directly with the customer** to clarify requirements, documented frontend design decisions, and mentored two frontend developers.
@@ -279,7 +278,7 @@ work:
       Fixed bugs and implemented requested improvements, including changes to the product import/export workflow.
     highlights:
       - |-
-        **Made it easier for merchants to import product catalogs from CSV files** by implementing a simpler.
+        **Made it easier for merchants to import product catalogs from CSV files** by implementing a simpler version of Import/Export functionality.
     skills: [PHP, MySQL, JavaScript]
 
 education:
@@ -300,245 +299,184 @@ certificates:
     date: "2013"
 
 skills:
-  - id: ts-js
-    level: Expert
-    name: TypeScript / JavaScript / Node.js
+  - name: TypeScript
+    id: ts-js
+    custom:
+      group: Programming languages
+  - name: JavaScript
     custom:
       group: Programming languages
   - name: PHP
-    level: Expert
     custom:
       group: Programming languages
   - name: Ruby
-    level: Advanced
     custom:
       group: Programming languages
   - name: Python
-    level: Middle
     custom:
       group: Programming languages
   - name: C#
-    level: Middle
     custom:
       group: Programming languages
   - name: Bash
-    level: Expert
     custom:
       group: Programming languages
-  - name: PostgreSQL
-    level: Advanced
+  - name: Distributed systems
     custom:
-      group: Databases and storages
-  - name: MySQL
-    level: Advanced
+      group: Software architecture
+  - name: microservices
     custom:
-      group: Databases and storages
-  - name: MongoDB
-    level: Advanced
+      group: Software architecture
+  - name: event-driven architecture
     custom:
-      group: Databases and storages
-  - name: ElasticSearch
-    level: Middle
+      group: Software architecture
+  - name: SDK design
     custom:
-      group: Databases and storages
-  - name: Redis
-    level: Advanced
+      group: Software architecture
+  - name: Node.js
     custom:
-      group: Databases and storages
-  - name: Angular
-    level: Expert
-    custom:
-      group: Frontend & Platforms
-  - name: Vue.js
-    level: Expert
-    custom:
-      group: Frontend & Platforms
-  - name: React.js
-    level: Advanced
-    custom:
-      group: Frontend & Platforms
-  - name: Next.js
-    level: Advanced
-    custom:
-      group: Frontend & Platforms
-  - name: Lit
-    level: Advanced
-    custom:
-      group: Frontend & Platforms
-  - name: Ionic
-    level: Advanced
-    custom:
-      group: Frontend & Platforms
-  - name: Cordova
-    level: Advanced
-    custom:
-      group: Frontend & Platforms
-  - name: RabbitMQ
-    custom:
-      group: Backend & Platforms
+      group: Backend engineering
   - name: Hono
-    level: Advanced
     custom:
-      group: Backend & Platforms
+      group: Backend engineering
+  - name: NestJS
+    custom:
+      group: Backend engineering
   - name: Fastify
-    level: Advanced
     custom:
-      group: Backend & Platforms
-  - name: Nest.js
-    level: Advanced
+      group: Backend engineering
+  - name: Express
     custom:
-      group: Backend & Platforms
-  - name: Express.js
-    level: Advanced
-    custom:
-      group: Backend & Platforms
-  - name: Rails (RoR)
-    level: Advanced
-    custom:
-      group: Backend & Platforms
-  - name: Playwright
-    custom:
-      group: Testing frameworks
-  - name: Cypress
-    custom:
-      group: Testing frameworks
-  - name: Protractor.js
-    custom:
-      group: Testing frameworks
-  - name: Jest
-    custom:
-      group: Testing frameworks
-  - name: Vitest
-    custom:
-      group: Testing frameworks
-  - name: Jasmine
-    custom:
-      group: Testing frameworks
-  - name: Mocha
-    custom:
-      group: Testing frameworks
-  - name: Chai.js
-    custom:
-      group: Testing frameworks
-  - name: Docker
-    level: Advanced
-    custom:
-      group: Infrastructure & CI/CD
-  - name: Kubernetes
-    level: Middle
-    custom:
-      group: Infrastructure & CI/CD
-  - name: Helm
-    level: Middle
-    custom:
-      group: Infrastructure & CI/CD
-  - name: Terraform
-    level: Middle
-    custom:
-      group: Infrastructure & CI/CD
-  - name: Ansible
-    level: Advanced
-    custom:
-      group: Infrastructure & CI/CD
-  - name: GitHub Actions
-    level: Expert
-    custom:
-      group: Infrastructure & CI/CD
-  - name: GitLab CI
-    level: Advanced
-    custom:
-      group: Infrastructure & CI/CD
-  - name: fastlane
-    custom:
-      group: Infrastructure & CI/CD
-  - name: App Stores
-    custom:
-      group: Infrastructure & CI/CD
-  - name: Auth0
-    custom:
-      group: Backend & Platforms
-  - name: Jenkins
-    level: Advanced
-    custom:
-      group: Infrastructure & CI/CD
-  - name: Linear
-    custom:
-      group: Project management tools
-  - name: JIRA
-    custom:
-      group: Project management tools
-  - name: Asana
-    custom:
-      group: Project management tools
-  - name: Technical mentoring
-    custom:
-      group: Engineering Leadership
-  - name: Architecture reviews
-    custom:
-      group: Engineering Leadership
-  - name: Cross-team collaboration
-    custom:
-      group: Engineering Leadership
-  - name: 1:1 meetings
-    custom:
-      group: Engineering Leadership
-  - name: Context engineering
-    level: Advanced
-    custom:
-      group: AI tools
-  - name: Prompt engineering
-    level: Advanced
-    custom:
-      group: AI tools
-  - name: Eval engineering
-    level: Middle
-    custom:
-      group: AI tools
-  - name: Codex
-    level: Advanced
-    custom:
-      group: AI tools
-  - name: Claude
-    level: Advanced
-    custom:
-      group: AI tools
-  - name: Pi/OpenRouter
-    level: Advanced
-    custom:
-      group: AI tools
-  - name: Microservices
-    custom:
-      group: Others
-  - name: AWS
-    custom:
-      group: Others
-  - name: GCP
-    custom:
-      group: Others
-  - name: OTEL
-    custom:
-      group: Others
-  - name: Grafana
-    custom:
-      group: Others
-  - name: Prometheus
-    custom:
-      group: Others
+      group: Backend engineering
   - name: REST
     custom:
-      group: Others
+      group: Backend engineering
   - name: GraphQL
     custom:
-      group: Others
-  - name: Protobuf
-    custom:
-      group: Others
+      group: Backend engineering
   - name: gRPC
     custom:
-      group: Others
-  - name: Home Assistant
+      group: Backend engineering
+  - name: React
     custom:
-      group: Others
+      group: Frontend engineering
+  - name: Next.js
+    custom:
+      group: Frontend engineering
+  - name: Angular
+    custom:
+      group: Frontend engineering
+  - name: Vue
+    custom:
+      group: Frontend engineering
+  - name: Lit
+    custom:
+      group: Frontend engineering
+  - name: PostgreSQL
+    custom:
+      group: Data engineering
+  - name: MongoDB
+    custom:
+      group: Data engineering
+  - name: Redis
+    custom:
+      group: Data engineering
+  - name: MySQL
+    custom:
+      group: Data engineering
+  - name: Elasticsearch
+    custom:
+      group: Data engineering
+  - name: RBAC
+    custom:
+      group: Security
+  - name: ABAC
+    custom:
+      group: Security
+  - name: authorization
+    custom:
+      group: Security
+  - name: encryption
+    custom:
+      group: Security
+  - name: KMS
+    custom:
+      group: Security
+  - name: mTLS
+    custom:
+      group: Security
+  - name: supply-chain security
+    custom:
+      group: Security
+  - name: Kubernetes
+    custom:
+      group: Platform engineering
+  - name: Docker
+    custom:
+      group: Platform engineering
+  - name: Helm
+    custom:
+      group: Platform engineering
+  - name: Terraform
+    custom:
+      group: Platform engineering
+  - name: AWS
+    custom:
+      group: Platform engineering
+  - name: GCP
+    custom:
+      group: Platform engineering
+  - name: OpenTelemetry
+    custom:
+      group: Observability
+  - name: Grafana
+    custom:
+      group: Observability
+  - name: Prometheus
+    custom:
+      group: Observability
+  - name: Automated testing
+    custom:
+      group: Quality engineering
+  - name: BDD
+    custom:
+      group: Quality engineering
+  - name: compatibility testing
+    custom:
+      group: Quality engineering
+  - name: behavioral evaluations
+    custom:
+      group: Quality engineering
+  - name: Architecture reviews
+    custom:
+      group: Engineering leadership
+  - name: technical mentoring
+    custom:
+      group: Engineering leadership
+  - name: cross-team collaboration
+    custom:
+      group: Engineering leadership
+  - name: Context engineering
+    custom:
+      group: AI engineering
+  - name: prompt engineering
+    custom:
+      group: AI engineering
+  - name: evaluation design
+    custom:
+      group: AI engineering
+  - name: agent workflows
+    custom:
+      group: AI engineering
+  - name: CI/CD
+    custom:
+      group: Developer productivity
+  - name: build tooling
+    custom:
+      group: Developer productivity
+  - name: release automation
+    custom:
+      group: Developer productivity
 
 languages:
   - language: English
@@ -576,13 +514,13 @@ projects:
       - Developed behavioral evaluations for AI agents and techniques for reducing unnecessary complexity
         while preserving architectural decisions.
 
-  - name: Realtime Video Player for Dahua
+  - name: Real-time Video Player for Dahua
     startDate: "2025"
     type: open source
     roles: [Author]
     highlights:
       - |-
-       **Created a real-time video player for Dahua cameras** that allowed users to view live video**Enabled live viewing of Dahua cameras in Home Assistant without the noticeable delay of my previous RTSP setup.**
+       **Created a real-time video player for Dahua cameras** that allowed me to view live video** from Dahua cameras in Home Assistant without the noticeable delay.
        Built on a third-party player for Dahua cameras and packaged it for personal use as an installable Home Assistant integration.
        For the initial version, I compiled a custom WebAssembly build of FFmpeg to convert video into a browser-supported format.
        But later, I rewrote playback to decode Dahua's RTSP-over-WebSocket stream in the browser using WebCodecs.

@@ -123,17 +123,17 @@ function render(resume) {
       scope(w, skillNames) +
       (w.highlights?.some(Boolean) ? '<h5>Achievements</h5>' + highlights(w) : '')),
     ).join(''), 'experience'),
-    section('Education', education.map(e => entry(escape([e.studyType, e.area].filter(Boolean).join(' in ')),
-      [link(e.institution, e.url), period(e)], prose(e.summary) + list((e.courses || []).map(inline)))).join('')),
-    section('Professional Skills', skillRows(skills)),
-    section('Languages', list(languages.map(({ language, fluency }) =>
-      escape(language) + (fluency ? ' (' + escape(fluency) + ')' : '')))),
     section('Projects I\'m proud of', projects.map(p => entry(
       link(p.name, p.url),
       // resume-cli aliases summary and description before calling the theme.
       [inline(p.custom?.label || (p.description?.trim() !== p.summary?.trim() && p.description?.trim()) || p.type)],
       prose(p.summary) + highlights(p)
     )).join('')),
+    section('Professional Skills', skillRows(skills)),
+    section('Education', education.map(e => entry(escape([e.studyType, e.area].filter(Boolean).join(' in ')),
+      [link(e.institution, e.url), period(e)], prose(e.summary) + list((e.courses || []).map(inline)))).join('')),
+    section('Languages', list(languages.map(({ language, fluency }) =>
+      escape(language) + (fluency ? ' (' + escape(fluency) + ')' : '')))),
     // section('Certificates', certificates.map(c => entry(link(c.name, c.url), [escape(c.issuer), date(c.date)])).join('')),
     // section('Volunteer', volunteer.map(v => entry(escape(v.position), [link(v.organization, v.url), period(v)],
     //   prose(v.summary) + highlights(v))).join('')),
