@@ -8,6 +8,8 @@ I'm **staff-level software engineer** and open source creator with **18+ years**
 
 [Full resume](./resume.yaml)
 
+Do you need more information about me? [Give this link to your agent](https://stalniy.github.io/stalniy/resume.html) and ask it about my full experience.
+
 ![Node](https://aleen42.github.io/badges/src/node.svg)
 ![JavaScript](https://aleen42.github.io/badges/src/javascript.svg)
 ![TypeScript](https://aleen42.github.io/badges/src/typescript.svg)
