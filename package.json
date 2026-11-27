@@ -7,7 +7,7 @@
     "render": "resume export resume.pdf --resume resume.yaml --theme ./jsonresume-theme"
   },
   "dependencies": {
-    "js-yaml": "4.1.1"
+    "js-yaml": "^4.3.2"
   },
   "repository": {
     "type": "git",
