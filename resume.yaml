@@ -288,7 +288,7 @@ work:
     endDate: "2010-09"
     description: Website development
     summary: |-
-      Web site and platform development. Developed from scratch a high load project served by Symfony, MySQL and Redis.
+      Website and platform development. Built a high-traffic web application from scratch using Symfony, MySQL, and Redis.
     skills: [PHP, MySQL, JavaScript, Symfony 1.4]
 
 education:
