@@ -508,11 +508,11 @@ skills:
 
 languages:
   - language: English
-    fluency: Advanced
+    fluency: full professional
   - language: Ukrainian
-    fluency: Native
+    fluency: native
   - language: Polish
-    fluency: Beginner
+    fluency: beginner
 
 projects:
   - name: CASL and UCAST
