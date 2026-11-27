@@ -28,7 +28,7 @@ basics:
 
 work:
   - name: Overclock Labs
-    position: Staff fullstack developer
+    position: Staff full-stack developer
     startDate: "2025-01"
     endDate: "2026-09"
     location: Remote
@@ -80,11 +80,11 @@ work:
 
   - name: Printify Inc.
     location: Remote
-    position: Senior frontend developer
+    position: Senior front-end developer
     startDate: "2021-10"
     endDate: "2024-12"
     description: |-
-      Print on Demand SaaS platform to help merchants and print providers find each other and produce prints on different goods.
+      Print on demand SaaS platform to help merchants and print providers find each other and produce prints on different goods.
     summary: |-
       Delivered merchant-facing features for Printify's print-on-demand platform,
       from clarifying business requirements and breaking them down into technical work
@@ -135,7 +135,7 @@ work:
 
   - name: Infozahyst
     location: Kyiv, Ukraine
-    position: Team Lead
+    position: Team lead
     startDate: "2018-09"
     endDate: "2020-01"
     description: |-
@@ -160,7 +160,7 @@ work:
 
   - name: Namecheap Inc
     location: Lviv, Ukraine
-    position: Tech Lead
+    position: Tech lead
     startDate: "2017-08"
     endDate: "2018-05"
     description: |-
@@ -179,7 +179,7 @@ work:
 
   - name: Ciklum (outstaff)
     location: Kyiv, Ukraine
-    position: Tech Lead
+    position: Tech lead
     startDate: "2016-01"
     endDate: "2017-07"
     description: |-
@@ -205,7 +205,7 @@ work:
 
   - name: Global Logic (outsource)
     location: Kyiv, Ukraine
-    position: Team Lead / Product Owner
+    position: Team lead / Product owner
     startDate: "2014-10"
     endDate: "2016-01"
     description: |-
@@ -213,7 +213,7 @@ work:
     summary: |
       Led a three-person engineering team building a web application for managing embedded devices, including video servers.
       Managed hiring, mentoring, one-on-ones, performance reviews, and application architecture.
-      Six months into the role, I **was promoted** to Proxy Product Owner while continuing to lead the team.
+      Six months into the role, I **was promoted** to proxy product owner while continuing to lead the team.
       **Worked with the product manager**, who gathered client needs and set roadmap priorities, to break planned work into epics and tasks.
       Wrote BDD scenarios in Jira that developers refined during planning and used to guide implementation and end-to-end testing.
     highlights:
@@ -235,7 +235,7 @@ work:
 
   - name: Daxx BV (outstaff)
     location: Kyiv, Ukraine
-    position: Senior Front-end developer / architect
+    position: Senior front-end developer / architect
     startDate: "2013-08"
     endDate: "2014-10"
     description: |-
@@ -258,7 +258,7 @@ work:
 
   - name: Cogniance (outsource)
     location: Kyiv, Ukraine
-    position: Senior Front-end developer
+    position: Senior front-end developer
     startDate: "2012-08"
     endDate: "2013-09"
     description: Ad management system.
@@ -528,7 +528,7 @@ projects:
   - name: Babysitter
     startDate: "2020"
     roles: [Author]
-    type: Chatbot
+    type: chatbot
     custom:
       label: Telegram bot
     highlights:
