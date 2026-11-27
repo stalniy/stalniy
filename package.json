@@ -1,0 +1,24 @@
+{
+  "name": "stalniy",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build:resume": "node scripts/build-resume.js",
+    "render": "resume export resume.pdf --resume resume.yaml --theme ./jsonresume-theme"
+  },
+  "dependencies": {
+    "js-yaml": "4.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stalniy/stalniy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/stalniy/stalniy/issues"
+  },
+  "homepage": "https://github.com/stalniy/stalniy#readme"
+}
