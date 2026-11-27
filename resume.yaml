@@ -281,6 +281,16 @@ work:
         **Made it easier for merchants to import product catalogs from CSV files** by implementing a simpler version of Import/Export functionality.
     skills: [PHP, MySQL, JavaScript]
 
+  - name: SiOPT
+    location: Kyiv, Ukraine
+    position: Web developer
+    startDate: "2008-09"
+    endDate: "2010-09"
+    description: Website development
+    summary: |-
+      Web site and platform development. Developed from scratch a high load project served by Symfony, MySQL and Redis.
+    skills: [PHP, MySQL, JavaScript, Symfony 1.4]
+
 education:
   - institution: International Management Academy
     studyType: SE MBA
@@ -374,19 +384,19 @@ skills:
       group: Frontend engineering
   - name: PostgreSQL
     custom:
-      group: Data engineering
+      group: Databases & Data Storage
   - name: MongoDB
     custom:
-      group: Data engineering
+      group: Databases & Data Storage
   - name: Redis
     custom:
-      group: Data engineering
+      group: Databases & Data Storage
   - name: MySQL
     custom:
-      group: Data engineering
+      group: Databases & Data Storage
   - name: Elasticsearch
     custom:
-      group: Data engineering
+      group: Databases & Data Storage
   - name: RBAC
     custom:
       group: Security
@@ -438,6 +448,18 @@ skills:
   - name: Automated testing
     custom:
       group: Quality engineering
+  - name: Playwright
+    custom:
+      group: Quality engineering
+  - name: Cypress
+    custom:
+      group: Quality engineering
+  - name: Jest
+    custom:
+      group: Quality engineering
+  - name: Vitest
+    custom:
+      group: Quality engineering
   - name: BDD
     custom:
       group: Quality engineering
@@ -458,17 +480,23 @@ skills:
       group: Engineering leadership
   - name: Context engineering
     custom:
-      group: AI engineering
+      group: Agentic Software Engineering
   - name: prompt engineering
     custom:
-      group: AI engineering
+      group: Agentic Software Engineering
   - name: evaluation design
     custom:
-      group: AI engineering
+      group: Agentic Software Engineering
   - name: agent workflows
     custom:
-      group: AI engineering
+      group: Agentic Software Engineering
   - name: CI/CD
+    custom:
+      group: Developer productivity
+  - name: GitHub Actions
+    custom:
+      group: Developer productivity
+  - name: GitLab CI
     custom:
       group: Developer productivity
   - name: build tooling
@@ -507,9 +535,9 @@ projects:
     type: open source
     roles: [Author]
     custom:
-      label: Spec driven development
+      label: Spec-Driven Development
     highlights:
-      - Created [AI engineering skills](https://github.com/stalniy/skills) for reviewing software specifications, identifying architectural risks, and
+      - Created [Agentic Software Engineering skills](https://github.com/stalniy/skills) for reviewing software specifications, identifying architectural risks, and
         resolving ambiguous requirements before implementation.
       - Developed behavioral evaluations for AI agents and techniques for reducing unnecessary complexity
         while preserving architectural decisions.
@@ -520,7 +548,7 @@ projects:
     roles: [Author]
     highlights:
       - |-
-       **Created a real-time video player for Dahua cameras** that allowed me to view live video** from Dahua cameras in Home Assistant without the noticeable delay.
+       **Created a real-time video player for Dahua cameras** that allowed me to view live video from Dahua cameras in Home Assistant without the noticeable delay.
        Built on a third-party player for Dahua cameras and packaged it for personal use as an installable Home Assistant integration.
        For the initial version, I compiled a custom WebAssembly build of FFmpeg to convert video into a browser-supported format.
        But later, I rewrote playback to decode Dahua's RTSP-over-WebSocket stream in the browser using WebCodecs.
