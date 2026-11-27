@@ -1,0 +1,6 @@
+{
+  "name": "jsonresume-theme-stalniy",
+  "version": "1.0.0",
+  "description": "A compact single-column A4 theme for JSON Resume",
+  "main": "index.js"
+}

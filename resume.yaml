@@ -1,0 +1,617 @@
+$schema: "https://raw.githubusercontent.com/jsonresume/jsonresume.org/master/packages/schema/schema.json"
+basics:
+  name: "Serhii Stotskyi"
+  email: "sergiy.stotskiy@gmail.com"
+  label: "Senior full-stack engineer • Product & Platform"
+  profiles:
+    - network: github
+      url: https://github.com/stalniy
+      username: stalniy
+    - network: linkedin
+      url: https://linkedin.com/in/sstotskyi
+      username: sstotskyi
+    - network: Medium
+      url: https://medium.com/@sstotskiy
+      username: sstotsky
+  location:
+    countryCode: PL
+    city: Cracow
+  summary: |-
+    I'm a staff-level software engineer with **18+ years** of experience in software development, including 5 years of building and managing engineering teams of 3–7 people alongside hands-on development.
+
+    My broad expertise across technologies allows me to quickly bring value to teams, products, and businesses.
+    Having worked in both established enterprises and fast-moving startups, I bring structure to complexity and predictability to software delivery without sacrificing agility.
+
+    I use **AI agents** daily, developing custom skills, workflows, and deterministic verification mechanisms to accelerate delivery without compromising software quality.
+
+    I've been **contributing to open source** since 2011. In 2017, I created [CASL](https://casl.js.org), a widely adopted TypeScript authorization library with over **11 million monthly downloads**.
+    I've authored **100+ technical blog posts** and have a successful track record of independently acquiring clients, providing technical consulting, and delivering software solutions.
+
+work:
+  - name: Overclock Labs
+    position: Staff fullstack developer
+    startDate: "2025-01"
+    endDate: "2026-09"
+    location: Remote
+    description: |-
+      [Akash Console](github.com/akash-network/console) is the open-source dashboard developers use to deploy and manage workloads on a decentralised cloud compute marketplace.
+    summary: |
+      Shared ownership of Akash Console services in a 3 developer team and served as the primary owner of the TypeScript blockchain SDK.
+      **Worked directly with customers and stakeholders**, took features from discovery through production rollout using feature flags and monitoring, maintained Kubernetes infrastructure, and participated in on-call support.
+    highlights:
+      - |-
+        **Reduced production error alerts by 75%** by identifying a transaction issue that could leave customers charged without receiving service,
+        coordinating the blockchain change with the VP of Engineering, and implementing and deploying unordered transactions in Akash Console.
+      - |-
+        **Drove discovery, designed the architecture, and implemented a unified TypeScript SDK** for Akash Console and the Akash open-source community.
+        Consolidated two overlapping libraries into one SDK with browser and Node.js support, TypeScript types, and lazy loading. Coordinated with 3 open-source projects and designed support for gRPC and gRPC Gateway.
+      - |-
+        **Designed and shipped encrypted storage for Akash Console deployment secrets**, moving them out of plaintext browser localStorage while preserving public API compatibility.
+        Used per-user data encryption keys wrapped by Cloud KMS to limit the impact of a compromised key and allow KMS key rotation without re-encrypting deployment secrets.
+        Bound each ciphertext to its owner and record.
+      - |-
+        **Designed and shipped a backend service that discovered and monitored 2,000+ Akash providers**, keeping their available resources, attributes, and availability up to date in PostgreSQL, in real time.
+        Ported the provider's Golang matching logic to TypeScript so Akash Console could identify potential bidders in about 100 ms, before users submitted an on-chain deployment that could take up to 5 seconds.
+      - |-
+        **Implemented security protection** against supply-chain attacks, code vulnerabilities, and exposed secrets as AI use in development grew by integrating Snyk, Socket, CodeQL, and Secretlint into CI.
+      - |-
+        **Implemented security protection** in runtime of all Node.js microservices by utilizing Node.js permission system. Worked consistently in both dev and prod environments.
+      - |-
+        **Increased weekly deployments from 16 to 40** and reduced CI wait time by an estimated 2.6 hours per week by replacing Webpack with tsup, Jest with Vitest, and adding GitHub merge queue support.
+        Implemented the migration manually on the first app, then used AI to help spread it out over other apps.
+      - |-
+        **Protected deployment secrets from provider impersonation** by implementing mTLS certificate validation in Akash Console's provider proxy.
+        Wrote network-level tests before refactoring the single-file Express service. The proxy verified provider identity against the blockchain and rejected requests when a provider's certificate was missing or invalid.
+      - |-
+        **Detected and blocked an attempt to reach internal Kubernetes services** through Akash Console’s public provider proxy.
+        Identified unusual request patterns while reviewing production alerts, then added URL validation and DNS checks to block requests targeting internal services and IP addresses.
+        The requests began returning HTTP 400 and eventually stopped.
+      - |-
+        **Improved production stability** by migrating 8 microservices to strict TypeScript over several months, including shared packages.
+        Started with smaller services and enabled strict checking incrementally in larger applications, catching more errors at build time while feature development continued.
+        Production incidents rate declined after the migration.
+      - |-
+        **Restored a customer's access to deployment logs** after reproducing a WebSocket failure triggered by an oversized cookie. Debugged the issue directly with the customer, tested and deployed the fix, and had the customer confirm that logs worked again.
+      - |-
+        **Diagnosed and fixed intermittent Akash Console API high latency** that pushed response times to 7–10 seconds and sometimes caused Kubernetes to restart containers after health-check timeouts.
+        Reproduced the issue locally with API load testing and event-loop delay tracing, then verified that affected requests responded in a few milliseconds in production.
+      - |-
+        **Reduced the risk of post-deployment failures** caused by differences between the Akash Chain SDK’s Go and TypeScript implementations by adding cross-language compatibility tests that checked TypeScript behavior against expected outputs from the Go test suite.
+    skills: [ts-js, React.js, Next.js, REST, gRPC, Protobuf, PostgreSQL, Docker, Kubernetes, GCP, OTEL, GitHub Actions, Grafana, Prometheus, Jest, Vitest, Helm, Playwright]
+
+  - name: Printify Inc.
+    location: Remote
+    position: Senior frontend developer
+    startDate: "2021-10"
+    endDate: "2024-12"
+    description: |-
+      Print on Demand SaaS platform to help merchants and print providers find each other and produce prints on different goods.
+    summary: |-
+      Delivered merchant-facing features for Printify's print-on-demand platform,
+      from clarifying business requirements and breaking them down into technical work
+      to rolling out changes behind feature flags. Shaped frontend architecture and
+      REST API contracts, coordinated changes across squads and application modules,
+      and monitored and responded to frontend production incidents.
+    highlights:
+      - |-
+        **Enabled merchants to choose and pay in a supported currency** by leading the frontend rollout of multi-currency support across squads.
+        Designed how currency selection was shared across modules and layers.
+      - |-
+        **Improved page load times and reliability** by migrating legacy Backbone functionality to Angular.
+        Reconstructed undocumented behavior from the existing code, added unit tests for the Angular implementations, and rolled out changes behind feature flags while monitoring production.
+      - |-
+        **Decreased time to delivery for frontend changes** by introducing GitHub’s merge queue for 20+ frontend developers.
+        Eliminated the need to update PR branches manually after every change to `main`, helping increase frontend deployments from 10 to 30 per day.
+      - |-
+        **Decreased time to delivery for frontend releases** by reusing release-versioned Angular assets built in CI.
+        This cut the deployment pipeline from about 10 minutes to 1 minute.
+      - |-
+        **Led 3 internal remote meetups** on building TypeScript backends and estimating engineering work, using examples from my own projects when Printify decided to write several services in Node.js.
+    skills: [ts-js, Angular, REST, Cypress, Jest]
+
+  - name: First Asset HR
+    location: Remote
+    position: Senior backend platform developer
+    startDate: "2020-10"
+    endDate: "2021-09"
+    description: |-
+      Internal management system for human resource managers.
+    summary: |-
+      Designed and built shared backend libraries for an internal HR management system on a three-developer team.
+      **Worked directly with the company owner** to clarify requirements and documented architectural decisions for approval.
+      Refined the PostgreSQL library's query interface with feedback from the developers who used it to compose dynamic SQL with a tagged template function.
+      Documented the libraries, reviewed code, and integrated my results across all applications.
+    highlights:
+      - |-
+        **Provided the backend team a single, type-safe way to access PostgreSQL** by designing and building its data access library.
+        The same interface covered ordinary and dynamic columns, stored as JSONB object fields, so adding a field required no database migration.
+      - |-
+        **Provided cache invalidation across horizontally scaled backend instances**, so an update on one instance told the others to discard stale local data.
+        Implemented this with PostgreSQL LISTEN/NOTIFY, reusing the existing database and avoiding the need for a managed Redis cluster.
+      - |-
+        **Enabled the React app to request GraphQL operations by ID** by building tooling that extracted queries at build time, assigned each one an identifier, and replaced raw queries in client requests with those IDs.
+      - |-
+        **Standardized release, linting, and formatting configuration across all applications** by building a shared CLI for semantic-release, ESLint, and Prettier and integrating it into every app.
+    skills: [ts-js, GraphQL, PostgreSQL, GitHub Actions]
+
+  - name: Infozahyst
+    location: Kyiv, Ukraine
+    position: Team Lead
+    startDate: "2018-09"
+    endDate: "2020-01"
+    description: |-
+      CRM-like information analytical data driven system that allows to aggregate and analyze structured, semi-structured and unstructured data.
+    summary: |
+      Led a seven-person team spanning frontend, backend, QA, and DevOps. Managed hiring, one-on-ones, and performance reviews, led sprint activities, and prioritized technical debt.
+      **Reported directly to the CTO**, a project stakeholder, and incorporated his feedback into the frontend and backend architecture for a graph-based analysis system.
+      Documented design decisions and built the working Node.js application that served as the reference for the C# backend later.
+    highlights:
+      - |-
+        **Enabled analysts to define object types, model relationships and inheritance, and visually investigate connections between records**.
+        Designed and documented the frontend and backend architecture with input from the CTO, and built a working Node.js application that served as the reference implementation for later migration to C#.
+      - |-
+        **Discussed and agreed with each team member an individual development plan** by meeting with on one-on-one, assessing their performance, and agreeing together on what they would work on next.
+      - |-
+        **Established development process: planning, review, testing for each sprint.**
+        Led daily standups, introduced sprint planning and retrospectives, configured Jira automation,
+         expanded code review from the team lead alone to developers reviewing each other's changesr, and established a testing strategy.
+      - |-
+        **Enabled relationship analysis for a customer using the system as a CRM** by implementing analytics in C# that counted relationships between objects matching specified conditions.
+    skills: [ts-js, C#, Vue.js, GraphQL, PostgreSQL, ElasticSearch, RabbitMQ, GitLab CI, Ansible, Jest, TestCafe]
+
+  - name: Namecheap Inc
+    location: Lviv, Ukraine
+    position: Tech Lead
+    startDate: "2017-08"
+    endDate: "2018-05"
+    description: |-
+      Hosting company: worked in platform and help desk teams
+    summary: |
+      Led a three-person internal engineering team that contributed to projects owned by other teams.
+      Managed hiring, mentoring, one-on-ones, and performance reviews alongside hands-on development.
+      The teams that owned the projects retained decision-making authority.
+    highlights:
+      - |-
+        **Built a lightweight website deployment system for the marketing team** using Contentful, terraform and AWS lambda functions.
+      - |-
+        **Cut Node.js end-to-end test runtime from several minutes to several seconds** by moving database migrations from before every test to suite startup.
+        Used disposable factories so each test managed its own db records.
+    skills: [ts-js, Vue.js, REST, MySQL, Docker, Terraform, Microservices, AWS, Jenkins]
+
+  - name: Ciklum (outstaff)
+    location: Kyiv, Ukraine
+    position: Tech Lead
+    startDate: "2016-01"
+    endDate: "2017-07"
+    description: |-
+      SaaS platform helping distributed retailers plan and execute their activities.
+    summary: |
+      Led a five-person engineering team building a SaaS platform for distributed retailers.
+      Managed hiring, mentoring, one-on-ones, and performance reviews alongside hands-on feature development.
+      **Worked directly with the customer** to plan and clarify requirements.
+      Guided framework evaluation through prototypes, designed and documented the architecture for the web and hybrid mobile apps, and managed technical debt in the legacy Backbone client.
+    highlights:
+      - |-
+        **Eliminated the customer's OrientDB Enterprise support cost** and removed the need to keep access-control data in sync across two databases
+        by reimplementing access control in MongoDB using query conditions and denormalization.
+      - |-
+        **Gave the Backbone legacy client a clearer structure** by introducing Rivets components and adapting the existing application to use them.
+      - |-
+        **Enabled code reuse across the web and hybrid mobile app** by designing an Angular 2 and Ionic 2 architecture with a shared service layer and shared UI components.
+        I chose that approach after team prototyped alternatives against its web, iOS, and Android requirements.
+      - |-
+        **Enabled the team to deliver updates to the hybrid app's web code and assets without waiting for a new app store review** by integrating Microsoft CodePush.
+        For releases that required store review, implemented the build and submission workflows for both Android and iOS using fastlane.
+    skills: [ts-js, Angular, Ionic, REST, MongoDB, fastlane, Apple Store, Google Play, Auth0, Jenkins, GitLab CI, Protractor.js, Mocha]
+
+  - name: Global Logic (outsource)
+    location: Kyiv, Ukraine
+    position: Team Lead / Product Owner
+    startDate: "2014-10"
+    endDate: "2016-01"
+    description: |-
+      A web management system for embedded systems, including video servers.
+    summary: |
+      Led a three-person engineering team building a web application for managing embedded devices, including video servers.
+      Managed hiring, mentoring, one-on-ones, performance reviews, and application architecture.
+      Six months into the role, I **was promoted** to Proxy Product Owner while continuing to lead the team.
+      **Worked with the product manager**, who gathered client needs and set roadmap priorities, to break planned work into epics and tasks.
+      Wrote BDD scenarios in Jira that developers refined during planning and used to guide implementation and end-to-end testing.
+    highlights:
+      - |-
+        **Simplified permission management across a form-heavy application** by building a reusable form field that rendered an editable input for administrators and a formatted, read-only value for regular users.
+        Taught the team to apply SOLID principles during the refactor.
+        Together, we replaced repeated input and binding code with shared fields that behaved consistently across forms.
+      - |-
+        **Helped developers move faster during implementation** by breaking stakeholder requests into epics and tasks and writing BDD scenarios for each task in Jira.
+        Developers used planning sessions to clarify expected behavior, then used the same scenarios to write end-to-end tests.
+      - |-
+        **Equipped developers to take ownership of end-to-end testing ahead of the planned withdrawal of dedicated QA support.**
+        Built an internal Protractor library that modeled pages as reusable sections, forms, and controls.
+        The team used it to build a suite of 400+ end-to-end tests, including one that changed a video server's configuration and verified it after a 15-minute restart.
+      - |-
+        **Trained the customer's QA team in Israel on end-to-end testing** at the customer's request.
+        Delivered a multi-day, on-site workshop on the approach I had developed for the project.
+    skills: [ts-js, Angular, Redis, REST, Protractor.js, Mocha]
+
+  - name: Daxx BV (outstaff)
+    location: Kyiv, Ukraine
+    position: Senior Front-end developer / architect
+    startDate: "2013-08"
+    endDate: "2014-10"
+    description: |-
+      A SaaS management platform for IP telophony over cloud.
+    summary: |
+      Owned frontend architecture and development for a white-label cloud telephony platform with separate applications for company administrators, providers, and users.
+      **Worked directly with the customer** to clarify requirements, documented frontend design decisions, and mentored two frontend developers.
+    highlights:
+      - |-
+        **Enabled platform administrators, providers, and users to configure cloud IP telephony within their respective roles** by designing the frontend architecture for a white-label SaaS platform.
+        Each audience had a dedicated application with its own set of features.
+      - |-
+        **Enabled administrators to configure interactive voice response (IVR) call flows visually.**
+        Independently built the editor's frontend in Knockout.js.
+        Administrators could assign actions to keypad choices and rearrange the call flow by dragging actions within a tree.
+      - |-
+        **Enabled the team to reuse UI components and validation across the platform's role-specific applications** by designing a shared frontend library that each application extended.
+        Used Knockout.js to bind views and components, and RequireJS to load modules on demand.
+    skills: [JavaScript, Knockout.js, REST, Jasmine, Gitlab CI]
+
+  - name: Cogniance (outsource)
+    location: Kyiv, Ukraine
+    position: Senior Front-end developer
+    startDate: "2012-08"
+    endDate: "2013-09"
+    description: Ad management system.
+    summary: |-
+      Built features for both the admin panel and the user-facing frontend of an ad management system.
+      Worked primarily on the admin panel, implementing Knockout.js views and the Ruby on Rails backend code that served them.
+    skills: [JavaScript, Knockout.js, Rails (RoR), MySQL, REST, Jasmine]
+
+  - name: Varien — X.commerce, Inc., an eBay company
+    location: Kyiv, Ukraine
+    position: PHP developer
+    startDate: "2010-10"
+    endDate: "2012-05"
+    description: Magento eCommerce platform.
+    summary: |-
+      Developed and maintained features for the Magento e-commerce platform in PHP.
+      Fixed bugs and implemented requested improvements, including changes to the product import/export workflow.
+    highlights:
+      - |-
+        **Made it easier for merchants to import product catalogs from CSV files** by implementing a simpler.
+    skills: [PHP, MySQL, JavaScript]
+
+education:
+  - institution: International Management Academy
+    studyType: SE MBA
+    area: Project Management
+    startDate: "2013"
+    endDate: "2014"
+  - institution: National Technical University of Ukraine 'Kyiv Polytechnic Institute'
+    area: Telecommunication Systems and Networks
+    startDate: "2006"
+    endDate: "2010"
+    summary: Faculty of Electronics, Department of Telecommunication Systems and Networks.
+
+certificates:
+  - name: Harzburg Certificate in Project Management
+    issuer: International Management Academy
+    date: "2013"
+
+skills:
+  - id: ts-js
+    level: Expert
+    name: TypeScript / JavaScript / Node.js
+    custom:
+      group: Programming languages
+  - name: PHP
+    level: Expert
+    custom:
+      group: Programming languages
+  - name: Ruby
+    level: Advanced
+    custom:
+      group: Programming languages
+  - name: Python
+    level: Middle
+    custom:
+      group: Programming languages
+  - name: C#
+    level: Middle
+    custom:
+      group: Programming languages
+  - name: Bash
+    level: Expert
+    custom:
+      group: Programming languages
+  - name: PostgreSQL
+    level: Advanced
+    custom:
+      group: Databases and storages
+  - name: MySQL
+    level: Advanced
+    custom:
+      group: Databases and storages
+  - name: MongoDB
+    level: Advanced
+    custom:
+      group: Databases and storages
+  - name: ElasticSearch
+    level: Middle
+    custom:
+      group: Databases and storages
+  - name: Redis
+    level: Advanced
+    custom:
+      group: Databases and storages
+  - name: Angular
+    level: Expert
+    custom:
+      group: Frontend & Platforms
+  - name: Vue.js
+    level: Expert
+    custom:
+      group: Frontend & Platforms
+  - name: React.js
+    level: Advanced
+    custom:
+      group: Frontend & Platforms
+  - name: Next.js
+    level: Advanced
+    custom:
+      group: Frontend & Platforms
+  - name: Lit
+    level: Advanced
+    custom:
+      group: Frontend & Platforms
+  - name: Ionic
+    level: Advanced
+    custom:
+      group: Frontend & Platforms
+  - name: Cordova
+    level: Advanced
+    custom:
+      group: Frontend & Platforms
+  - name: RabbitMQ
+    custom:
+      group: Backend & Platforms
+  - name: Hono
+    level: Advanced
+    custom:
+      group: Backend & Platforms
+  - name: Fastify
+    level: Advanced
+    custom:
+      group: Backend & Platforms
+  - name: Nest.js
+    level: Advanced
+    custom:
+      group: Backend & Platforms
+  - name: Express.js
+    level: Advanced
+    custom:
+      group: Backend & Platforms
+  - name: Rails (RoR)
+    level: Advanced
+    custom:
+      group: Backend & Platforms
+  - name: Playwright
+    custom:
+      group: Testing frameworks
+  - name: Cypress
+    custom:
+      group: Testing frameworks
+  - name: Protractor.js
+    custom:
+      group: Testing frameworks
+  - name: Jest
+    custom:
+      group: Testing frameworks
+  - name: Vitest
+    custom:
+      group: Testing frameworks
+  - name: Jasmine
+    custom:
+      group: Testing frameworks
+  - name: Mocha
+    custom:
+      group: Testing frameworks
+  - name: Chai.js
+    custom:
+      group: Testing frameworks
+  - name: Docker
+    level: Advanced
+    custom:
+      group: Infrastructure & CI/CD
+  - name: Kubernetes
+    level: Middle
+    custom:
+      group: Infrastructure & CI/CD
+  - name: Helm
+    level: Middle
+    custom:
+      group: Infrastructure & CI/CD
+  - name: Terraform
+    level: Middle
+    custom:
+      group: Infrastructure & CI/CD
+  - name: Ansible
+    level: Advanced
+    custom:
+      group: Infrastructure & CI/CD
+  - name: GitHub Actions
+    level: Expert
+    custom:
+      group: Infrastructure & CI/CD
+  - name: GitLab CI
+    level: Advanced
+    custom:
+      group: Infrastructure & CI/CD
+  - name: fastlane
+    custom:
+      group: Infrastructure & CI/CD
+  - name: App Stores
+    custom:
+      group: Infrastructure & CI/CD
+  - name: Auth0
+    custom:
+      group: Backend & Platforms
+  - name: Jenkins
+    level: Advanced
+    custom:
+      group: Infrastructure & CI/CD
+  - name: Linear
+    custom:
+      group: Project management tools
+  - name: JIRA
+    custom:
+      group: Project management tools
+  - name: Asana
+    custom:
+      group: Project management tools
+  - name: Technical mentoring
+    custom:
+      group: Engineering Leadership
+  - name: Architecture reviews
+    custom:
+      group: Engineering Leadership
+  - name: Cross-team collaboration
+    custom:
+      group: Engineering Leadership
+  - name: 1:1 meetings
+    custom:
+      group: Engineering Leadership
+  - name: Context engineering
+    level: Advanced
+    custom:
+      group: AI tools
+  - name: Prompt engineering
+    level: Advanced
+    custom:
+      group: AI tools
+  - name: Eval engineering
+    level: Middle
+    custom:
+      group: AI tools
+  - name: Codex
+    level: Advanced
+    custom:
+      group: AI tools
+  - name: Claude
+    level: Advanced
+    custom:
+      group: AI tools
+  - name: Pi/OpenRouter
+    level: Advanced
+    custom:
+      group: AI tools
+  - name: Microservices
+    custom:
+      group: Others
+  - name: AWS
+    custom:
+      group: Others
+  - name: GCP
+    custom:
+      group: Others
+  - name: OTEL
+    custom:
+      group: Others
+  - name: Grafana
+    custom:
+      group: Others
+  - name: Prometheus
+    custom:
+      group: Others
+  - name: REST
+    custom:
+      group: Others
+  - name: GraphQL
+    custom:
+      group: Others
+  - name: Protobuf
+    custom:
+      group: Others
+  - name: gRPC
+    custom:
+      group: Others
+  - name: Home Assistant
+    custom:
+      group: Others
+
+languages:
+  - language: English
+    fluency: Advanced
+  - language: Ukrainian
+    fluency: Native
+  - language: Polish
+    fluency: Beginner
+
+projects:
+  - name: CASL and UCAST
+    url: https://casl.js.org
+    startDate: "2017"
+    roles: [Author]
+    type: open source
+    custom:
+      label: Authorization tooling
+    highlights:
+      - Created and for nearly a decade have maintained [CASL](https://casl.js.org/), an open-source authorization library covering
+        the entire JavaScript/TypeScript stack, with 11M+ monthly npm downloads.
+      - Designed [UCAST](https://github.com/stalniy/ucast) to represent and evaluate authorization rules and translate conditions into SQL queries.
+        Its format was adopted by [Open Policy Agent](https://www.openpolicyagent.org/docs/filtering/ucast-syntax) and [Cerbos](https://www.cerbos.dev/ecosystem/ucast) for data filtering.
+      - Presented at JSFest conference on using CASL to implement authorization across the TypeScript stack, showing how developers could define authorization rules in one place and apply them across the application.
+    keywords: [TypeScript, Authorization]
+
+  - name: AI skills
+    startDate: "2026"
+    type: open source
+    roles: [Author]
+    custom:
+      label: Spec driven development
+    highlights:
+      - Created [AI engineering skills](https://github.com/stalniy/skills) for reviewing software specifications, identifying architectural risks, and
+        resolving ambiguous requirements before implementation.
+      - Developed behavioral evaluations for AI agents and techniques for reducing unnecessary complexity
+        while preserving architectural decisions.
+
+  - name: Realtime Video Player for Dahua
+    startDate: "2025"
+    type: open source
+    roles: [Author]
+    highlights:
+      - |-
+       **Created a real-time video player for Dahua cameras** that allowed users to view live video**Enabled live viewing of Dahua cameras in Home Assistant without the noticeable delay of my previous RTSP setup.**
+       Built on a third-party player for Dahua cameras and packaged it for personal use as an installable Home Assistant integration.
+       For the initial version, I compiled a custom WebAssembly build of FFmpeg to convert video into a browser-supported format.
+       But later, I rewrote playback to decode Dahua's RTSP-over-WebSocket stream in the browser using WebCodecs.
+
+  - name: Babysitter
+    startDate: "2020"
+    roles: [Author]
+    type: Chatbot
+    custom:
+      label: Telegram bot
+    highlights:
+      - |-
+        **Gave my family a shared sleep log at no cost** by building a Telegram bot on the AWS Free Tier.
+        My wife, my daughter's grandmother, and I could each record when my daughter woke up or fell asleep with one tap.
+        We used daily and monthly summaries alongside reference sleep patterns to decide when to put her to bed and how long to let her sleep.
+
+  - name: "0 Step checkout"
+    roles: [Author]
+    startDate: "2012"
+    type: Magento plugin
+    summary: 0 Step Checkout provide One Page Checkout functionality for Magento, combine all the steps for checkout (including shopping cart) into one page only.
+    highlights:
+      - |-
+        **Let shoppers review their cart and complete checkout on a single page** by building an independent Magento plugin that combined the cart and checkout steps, removing the need to click through successive screens.
+
+interests:
+  - name: Open source
+    keywords: [CASL, UCAST, Ionic, Cordova, Protractor]
+  - name: Writing
+    keywords: [Technical blog posts]
+  - name: Reading
+  - name: Skating
