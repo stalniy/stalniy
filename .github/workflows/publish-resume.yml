@@ -6,6 +6,7 @@ on:
     paths:
       - resume.yaml
       - jsonresume-theme/**
+      - assets/master-cv-thumbnail.png
       - scripts/build-resume.js
       - scripts/render-markdown.js
       - package.json
@@ -29,7 +30,12 @@ jobs:
           node-version: '24'
       - run: npm ci
       - run: npm run build:resume
-      - run: mkdir -p site && cp resume.html site/index.html && cp resume.html site/resume.html && cp resume.md site/resume.md
+      - run: |
+          mkdir -p site/assets
+          cp resume.html site/index.html
+          cp resume.html site/resume.html
+          cp resume.md site/resume.md
+          cp assets/master-cv-thumbnail.png site/assets/master-cv-thumbnail.png
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: resume-site

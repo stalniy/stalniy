@@ -99,6 +99,26 @@ function skillRows(skills) {
   return list(rows, 'skills');
 }
 
+function socialMeta(basics) {
+  const title = `${basics.name || 'Resume'} — Resume`;
+  const description = String(basics.summary || basics.label || '')
+    .split(/\n\s*\n/)[0].replace(/\*\*/g, '').replace(/\s+/g, ' ').trim();
+  const image = 'https://sstotskyi.dev/assets/master-cv-thumbnail.png';
+  return `<meta name="description" content="${escape(description)}">` +
+    `<meta property="og:type" content="website">` +
+    `<meta property="og:title" content="${escape(title)}">` +
+    `<meta property="og:description" content="${escape(description)}">` +
+    `<meta property="og:url" content="https://sstotskyi.dev/">` +
+    `<meta property="og:image" content="${image}">` +
+    `<meta property="og:image:width" content="1200">` +
+    `<meta property="og:image:height" content="630">` +
+    `<meta property="og:image:alt" content="${escape(title)}">` +
+    `<meta name="twitter:card" content="summary_large_image">` +
+    `<meta name="twitter:title" content="${escape(title)}">` +
+    `<meta name="twitter:description" content="${escape(description)}">` +
+    `<meta name="twitter:image" content="${image}">`;
+}
+
 function highlights(item, interactive = false) {
   const marked = new Set(item.custom?.focusHighlights);
   return list((item.highlights || []).map((line, index) => {
@@ -194,7 +214,7 @@ function render(resume, { interactive = false, keywords = [] } = {}) {
     // section('Interests', list(interests.map(i => [escape(i.name), (i.keywords || []).map(escape).join(', ')].filter(Boolean).join(' — ')))),
     // section('References', references.map(r => entry(escape(r.name), [], prose(r.reference))).join(''))
   ];
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title>${interactive ? '<link rel="alternate" type="text/markdown" href="/resume.md" title="Markdown resume">' : ''}<style>${css}</style></head><body>${interactive ? toolbar(keywords) : ''}<main>${header(basics)}${sections.join('')}</main>${interactive ? filterScript : ''}</body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title>${interactive ? '<link rel="alternate" type="text/markdown" href="/resume.md" title="Markdown resume">' + socialMeta(basics) : ''}<style>${css}</style></head><body>${interactive ? toolbar(keywords) : ''}<main>${header(basics)}${sections.join('')}</main>${interactive ? filterScript : ''}</body></html>`;
 }
 
 module.exports = { render, pdfRenderOptions: { format: 'A4', preferCSSPageSize: true, mediaType: 'print' } };
