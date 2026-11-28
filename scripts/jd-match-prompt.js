@@ -1,5 +1,5 @@
-const crypto = require('node:crypto');
-const { lexer } = require('marked');
+import { createHash } from 'node:crypto';
+import { lexer } from 'marked';
 
 const COMMIT = '737f3d86c25e5d15fbcf59b00b8a64c245143751';
 const SHA256 = '6a438d659064eb3322303d7583dbf02e8cae727bba837b9ea89de3f9c7e8b111';
@@ -7,7 +7,7 @@ const SOURCE_URL = `https://raw.githubusercontent.com/stalniy/skills/${COMMIT}/s
 const METHODOLOGY_URL = `https://github.com/stalniy/skills/blob/${COMMIT}/skills/jd-matches/SKILL.md`;
 
 function preprocessSkill(source) {
-  if (crypto.createHash('sha256').update(source).digest('hex') !== SHA256) {
+  if (createHash('sha256').update(source).digest('hex') !== SHA256) {
     throw new Error('Pinned JD matching skill has unexpected content; review the upstream file and transformation before updating its hash.');
   }
   const frontmatter = /^---\r?\n([\s\S]*?)\r?\n---\r?\n/.exec(source);
@@ -73,4 +73,4 @@ async function fetchSkill() {
   return response.text();
 }
 
-module.exports = { COMMIT, SOURCE_URL, METHODOLOGY_URL, SHA256, preprocessSkill, generatePrompt, fetchSkill };
+export { COMMIT, SOURCE_URL, METHODOLOGY_URL, SHA256, preprocessSkill, generatePrompt, fetchSkill };

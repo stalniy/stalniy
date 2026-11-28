@@ -59,13 +59,19 @@ mark { background: #e0f2eb; color: inherit; border-bottom: 1px solid #598878; }
   .keyword-list button:last-child { margin-right: auto; }
   .keyword-list button:hover, .keyword-list button:focus-visible { border-color: #215347; outline-color: #215347; }
   .keyword-list button[aria-pressed="true"] { background: #215347; border-color: #215347; color: #fff; }
+  .research-action-row { margin-top: 7pt; }
+  .research-action-row + section { margin-top: 10pt; }
+  .research-action { display: inline-flex; align-items: center; gap: 6px; padding: 0; border: 0; background: none; color: #215347; font: inherit; text-align: left; cursor: pointer; }
+  .research-action:hover span { text-decoration: underline; text-underline-offset: 2px; }
+  .research-action:focus-visible { outline: 2px solid #215347; outline-offset: 3px; }
+  .research-action svg { flex: none; }
   .cv-actions { position: fixed; right: 20px; bottom: 20px; z-index: 20; display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
-  .book-call, .match-action { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 16px; border-radius: 999px; box-shadow: 0 3px 10px #0003; font: 600 10pt/1.2 Inter, Arial, sans-serif; text-decoration: none; white-space: nowrap; cursor: pointer; }
+  .book-call, .match-action { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 36px; padding: 7px 12px; border-radius: 999px; box-shadow: 0 2px 6px #0002; font: 600 9pt/1.2 Inter, Arial, sans-serif; text-decoration: none; white-space: nowrap; cursor: pointer; }
   .book-call { border: 1px solid #215347; background: #215347; color: #fff; }
   .match-action { border: 1px solid #215347; background: #fff; color: #215347; }
   .match-action:hover { background: #e0f2eb; }
   .match-label-short { display: none; }
-  .book-call:hover { background: #183e35; box-shadow: 0 5px 14px #0003; }
+  .book-call:hover { background: #183e35; box-shadow: 0 3px 8px #0002; }
   .book-call:focus-visible, .match-action:focus-visible { outline: 3px solid #215347; outline-offset: 3px; box-shadow: 0 0 0 5px #fff; }
   .book-call svg, .match-action svg { flex: none; }
   .match-dialog { width: min(540px, calc(100vw - 32px)); max-height: min(90vh, 800px); padding: 0; border: 1px solid #b5c5cd; border-radius: 14px; color: #111; box-shadow: 0 12px 40px #0004; }
@@ -83,12 +89,19 @@ mark { background: #e0f2eb; color: inherit; border-bottom: 1px solid #598878; }
   .match-dialog :focus-visible { outline: 3px solid #215347; outline-offset: 2px; }
   .match-feedback { min-height: 1.4em; margin: 8px 0 !important; color: #215347; }
   .match-providers a, .match-source a { color: #215347; }
+  .research-dialog details { margin-bottom: 16px; }
+  .research-dialog summary { width: fit-content; color: #215347; font-weight: 600; cursor: pointer; }
+  .research-dialog pre { max-height: 240px; overflow: auto; margin: 10px 0 0; padding: 12px; border: 1px solid #d5dce2; border-radius: 6px; background: #f7faf9; font: 9pt/1.5 ui-monospace, SFMono-Regular, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+  .research-provider { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; margin-bottom: 14px; border: 1px solid #215347; border-radius: 999px; color: #215347; font: 600 10pt/1.2 Inter, Arial, sans-serif; text-decoration: none; }
+  .research-provider:hover { background: #e0f2eb; }
+  .research-dialog .research-note { color: #596b82; font-size: 9pt; }
 }
 @media screen and (max-width: 640px) {
   body { padding-bottom: calc(92px + env(safe-area-inset-bottom)); }
   .toolbar-inner { padding: 10px 20px; }
   .cv-actions { right: 0; bottom: 0; left: 0; flex-direction: row; gap: 8px; padding: 10px max(12px, env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); background: #fff; border-top: 1px solid #d5dce2; }
   .cv-actions > * { flex: 1; }
+  .book-call, .match-action { min-height: 44px; padding: 10px 16px; font-size: 10pt; }
   .match-dialog-inner { padding: 20px; }
 }
 @media screen and (max-width: 380px) {
@@ -96,5 +109,5 @@ mark { background: #e0f2eb; color: inherit; border-bottom: 1px solid #598878; }
   .match-label-short { display: inline; }
 }
 @media print {
-  .keyword-toolbar, .cv-actions, .match-dialog { display: none !important; }
+  .keyword-toolbar, .cv-actions, .match-dialog, .research-action-row { display: none !important; }
 }

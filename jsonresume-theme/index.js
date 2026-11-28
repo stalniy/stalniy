@@ -1,6 +1,7 @@
-const fs = require('node:fs');
-const path = require('node:path');
-const css = fs.readFileSync(path.join(__dirname, 'style.css'), 'utf8');
+import { readFileSync } from 'node:fs';
+
+const css = readFileSync(new URL('./style.css', import.meta.url), 'utf8');
+const OSS_RESEARCH_PROMPT = readFileSync(new URL('./research-prompt.md', import.meta.url), 'utf8');
 
 function escape(value = '') {
   return String(value).replace(/[&<>"']/g, char => ({
@@ -213,6 +214,52 @@ function matchUi(prompt, methodologyUrl) {
 })();</script>`;
 }
 
+function researchAction() {
+  return `<div class="research-action-row"><button type="button" class="research-action" id="open-research" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5M18 3v4M16 5h4"/></svg><span>Explore my open-source work with AI</span></button></div>`;
+}
+
+function researchUi() {
+  const safePrompt = JSON.stringify(OSS_RESEARCH_PROMPT).replace(/</g, '\\u003c');
+  return `<dialog class="match-dialog research-dialog" id="research-dialog" aria-labelledby="research-title" aria-describedby="research-description">
+  <div class="match-dialog-inner"><button type="button" class="match-close" id="close-research" aria-label="Close dialog">×</button>
+    <h2 id="research-title">Research my open-source contributions</h2>
+    <p id="research-description">Independently evaluate my engineering expertise, technical contributions, and open-source impact using publicly available evidence.</p>
+    <details id="research-prompt-details"><summary>View research prompt</summary><pre id="research-prompt"></pre></details>
+    <button type="button" class="match-copy" id="copy-research">Copy research prompt</button>
+    <p class="match-feedback" id="research-feedback" role="status" aria-live="polite"></p>
+    <p>For the most thorough assessment, enable Deep Research mode in Gemini and paste the copied prompt.</p>
+    <a class="research-provider" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" data-research-provider="Gemini">Open Gemini</a>
+    <p class="research-note">The prompt also works with other AI assistants that support web research.</p>
+  </div>
+</dialog>
+<script>(() => {
+  const prompt = ${safePrompt};
+  const dialog = document.getElementById('research-dialog');
+  const opener = document.getElementById('open-research');
+  const close = document.getElementById('close-research');
+  const feedback = document.getElementById('research-feedback');
+  const details = document.getElementById('research-prompt-details');
+  const track = (name, data) => { if (window.umami?.track) window.umami.track(name, data); };
+  document.getElementById('research-prompt').textContent = prompt;
+  opener.addEventListener('click', () => { dialog.showModal(); close.focus(); track('oss-research-open'); });
+  close.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => { feedback.textContent = ''; details.open = false; opener.focus(); });
+  dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+  details.addEventListener('toggle', () => { if (details.open) track('oss-research-prompt-expand'); });
+  document.getElementById('copy-research').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(prompt);
+      feedback.textContent = 'Research prompt copied.';
+      track('oss-research-prompt-copy');
+    } catch {
+      feedback.textContent = 'Could not copy automatically. Check browser clipboard permissions and try again.';
+    }
+  });
+  dialog.querySelector('[data-research-provider]').addEventListener('click', event =>
+    track('oss-research-provider-click', { provider: event.currentTarget.dataset.researchProvider }));
+})();</script>`;
+}
+
 function scope(work, skillNames) {
   const summary = work.summary?.trim();
   const skills = (work.skills || []).slice(0, 8).map(skill => escape(skillNames.get(skill) || skill)).join(', ');
@@ -258,7 +305,13 @@ function render(resume, { interactive = false, keywords = [], matchPrompt = '', 
     // section('Interests', list(interests.map(i => [escape(i.name), (i.keywords || []).map(escape).join(', ')].filter(Boolean).join(' — ')))),
     // section('References', references.map(r => entry(escape(r.name), [], prose(r.reference))).join(''))
   ];
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title>${interactive ? '<link rel="alternate" type="text/markdown" href="/resume.md" title="Markdown resume">' + socialMeta(basics) : ''}<style>${css}</style></head><body>${interactive ? toolbar(keywords) : ''}<main>${header(basics)}${sections.join('')}</main>${interactive ? matchUi(matchPrompt, methodologyUrl) + filterScript : ''}</body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title>${interactive ? '<link rel="alternate" type="text/markdown" href="/resume.md" title="Markdown resume">' + socialMeta(basics) : ''}<style>${css}</style></head><body>${interactive ? toolbar(keywords) : ''}<main>${header(basics)}${interactive ? researchAction() : ''}${sections.join('')}</main>${interactive ? matchUi(matchPrompt, methodologyUrl) + researchUi() + filterScript : ''}</body></html>`;
 }
 
-module.exports = { render, pdfRenderOptions: { format: 'A4', preferCSSPageSize: true, mediaType: 'print' } };
+const pdfRenderOptions = {
+  format: 'A4',
+  preferCSSPageSize: true,
+  mediaType: 'print'
+};
+
+export { render, pdfRenderOptions };

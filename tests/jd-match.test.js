@@ -1,18 +1,18 @@
-const test = require('node:test');
-const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
-const vm = require('node:vm');
-const yaml = require('js-yaml');
-const { render } = require('../jsonresume-theme');
-const { renderMarkdown } = require('../scripts/render-markdown');
-const { fetchSkill, preprocessSkill, generatePrompt } = require('../scripts/jd-match-prompt');
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import vm from 'node:vm';
+import yaml from 'js-yaml';
+import { render } from '../jsonresume-theme/index.js';
+import { renderMarkdown } from '../scripts/render-markdown.js';
+import { fetchSkill, preprocessSkill, generatePrompt } from '../scripts/jd-match-prompt.js';
 
-const root = path.resolve(__dirname, '..');
+const root = path.resolve(import.meta.dirname, '..');
 
 test('pinned skill transformation matches snapshot and retains assessment rules', async () => {
   const methodology = preprocessSkill(await fetchSkill());
-  assert.equal(methodology, fs.readFileSync(path.join(__dirname, 'snapshots/jd-methodology.md'), 'utf8'));
+  assert.equal(methodology, fs.readFileSync(path.join(import.meta.dirname, 'snapshots/jd-methodology.md'), 'utf8'));
   for (const phrase of ['must-have', 'nice-to-have', 'responsibility', 'Explicit', 'Semantic',
     'Unclear', 'Missing', 'requirement matrix', 'screening questions', 'keyword frequency']) {
     assert.ok(methodology.includes(phrase), `Missing matching instruction: ${phrase}`);
@@ -44,7 +44,7 @@ test('interactive CV includes accessible actions and print exclusions', () => {
   assert.match(html, /data-umami-event="book-call-click"/);
   assert.match(html, /jd-match-provider-click/);
   assert.match(css, /@media screen and \(max-width: 640px\)[\s\S]*?\.cv-actions \{[^}]*flex-direction: row/);
-  assert.match(css, /@media print \{[^}]*\.cv-actions, \.match-dialog \{ display: none !important/);
+  assert.match(css, /@media print \{[^}]*\.cv-actions, \.match-dialog, \.research-action-row \{ display: none !important/);
   assert.ok(!print.includes('class="cv-actions"'));
   assert.ok(!print.includes('<dialog'));
 });

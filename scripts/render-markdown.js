@@ -99,4 +99,4 @@ function renderMarkdown(resume) {
   return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n';
 }
 
-module.exports = { renderMarkdown };
+export { renderMarkdown };

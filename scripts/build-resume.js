@@ -1,11 +1,11 @@
-const fs = require('node:fs');
-const path = require('node:path');
-const yaml = require('js-yaml');
-const { render } = require('../jsonresume-theme');
-const { renderMarkdown } = require('./render-markdown');
-const { fetchSkill, preprocessSkill, generatePrompt, METHODOLOGY_URL } = require('./jd-match-prompt');
+import fs from 'node:fs';
+import path from 'node:path';
+import yaml from 'js-yaml';
+import { render } from '../jsonresume-theme/index.js';
+import { renderMarkdown } from './render-markdown.js';
+import { fetchSkill, preprocessSkill, generatePrompt, METHODOLOGY_URL } from './jd-match-prompt.js';
 
-const root = path.resolve(__dirname, '..');
+const root = path.resolve(import.meta.dirname, '..');
 const resume = yaml.load(fs.readFileSync(path.join(root, 'resume.yaml'), 'utf8'));
 
 if (!resume || typeof resume !== 'object' || Array.isArray(resume)) {
