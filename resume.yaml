@@ -38,6 +38,7 @@ work:
       Shared ownership of Akash Console services in a 3 developer team and served as the primary owner of the TypeScript blockchain SDK.
       **Worked directly with customers and stakeholders**, took features from discovery through production rollout using feature flags and monitoring, maintained Kubernetes infrastructure, and participated in on-call support.
       Used **AI spec-driven development** to implement Akash Console features from writing and grilling specifications to implementation and testing.
+      Co-authored Akash Enhancement Proposals (AEPs) for the [Chain SDK](https://akash.network/roadmap/aep-56/), [Console Bid Screening](https://akash.network/roadmap/aep-67/), and [Console: Data Persistence and Secrets](https://akash.network/roadmap/aep-92/).
     custom:
       highlights:
         - summary: |-
