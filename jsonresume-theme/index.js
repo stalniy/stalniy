@@ -194,7 +194,7 @@ function render(resume, { interactive = false, keywords = [] } = {}) {
     // section('Interests', list(interests.map(i => [escape(i.name), (i.keywords || []).map(escape).join(', ')].filter(Boolean).join(' — ')))),
     // section('References', references.map(r => entry(escape(r.name), [], prose(r.reference))).join(''))
   ];
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title><style>${css}</style></head><body>${interactive ? toolbar(keywords) : ''}<main>${header(basics)}${sections.join('')}</main>${interactive ? filterScript : ''}</body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title>${interactive ? '<link rel="alternate" type="text/markdown" href="/resume.md" title="Markdown resume">' : ''}<style>${css}</style></head><body>${interactive ? toolbar(keywords) : ''}<main>${header(basics)}${sections.join('')}</main>${interactive ? filterScript : ''}</body></html>`;
 }
 
 module.exports = { render, pdfRenderOptions: { format: 'A4', preferCSSPageSize: true, mediaType: 'print' } };

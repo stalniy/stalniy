@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const yaml = require('js-yaml');
 const { render } = require('../jsonresume-theme');
+const { renderMarkdown } = require('./render-markdown');
 
 const root = path.resolve(__dirname, '..');
 const resume = yaml.load(fs.readFileSync(path.join(root, 'resume.yaml'), 'utf8'));
@@ -9,6 +10,8 @@ const resume = yaml.load(fs.readFileSync(path.join(root, 'resume.yaml'), 'utf8')
 if (!resume || typeof resume !== 'object' || Array.isArray(resume)) {
   throw new Error('resume.yaml must contain a resume object');
 }
+
+fs.writeFileSync(path.join(root, 'resume.md'), renderMarkdown(resume));
 
 function normalize(keyword) {
   return String(keyword).trim().toLowerCase().replace(/\s+/g, '-');

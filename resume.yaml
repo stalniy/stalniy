@@ -33,7 +33,7 @@ work:
     endDate: "2026-09"
     location: Remote
     description: |-
-      [Akash Console](github.com/akash-network/console) is the open-source dashboard developers use to deploy and manage workloads on a decentralised cloud compute marketplace.
+      [Akash Console](https://github.com/akash-network/console) is the open-source dashboard developers use to deploy and manage workloads on a decentralised cloud compute marketplace.
     summary: |
       Shared ownership of Akash Console services in a 3 developer team and served as the primary owner of the TypeScript blockchain SDK.
       **Worked directly with customers and stakeholders**, took features from discovery through production rollout using feature flags and monitoring, maintained Kubernetes infrastructure, and participated in on-call support.
