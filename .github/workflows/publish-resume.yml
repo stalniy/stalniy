@@ -9,6 +9,8 @@ on:
       - assets/master-cv-thumbnail.png
       - scripts/build-resume.js
       - scripts/render-markdown.js
+      - scripts/jd-match-prompt.js
+      - tests/**
       - package.json
       - package-lock.json
       - .github/workflows/publish-resume.yml
@@ -29,6 +31,7 @@ jobs:
         with:
           node-version: '24'
       - run: npm ci
+      - run: npm test
       - run: npm run build:resume
       - run: |
           mkdir -p site/assets

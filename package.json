@@ -4,10 +4,12 @@
   "private": true,
   "scripts": {
     "build:resume": "node scripts/build-resume.js",
+    "test": "node --test tests/*.test.js",
     "render": "npm run build:resume && resume export resume.pdf --resume resume.json --theme ./jsonresume-theme"
   },
   "dependencies": {
-    "js-yaml": "^4.3.2"
+    "js-yaml": "^4.3.2",
+    "marked": "^17.0.6"
   },
   "repository": {
     "type": "git",

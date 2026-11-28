@@ -171,6 +171,48 @@ function toolbar(keywords) {
 
 const bookCall = `<a class="book-call" href="https://cal.com/sstotskyi/15min" target="_blank" rel="noopener noreferrer" data-umami-event="book-call-click"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg><span>Book a call</span></a>`;
 
+function matchUi(prompt, methodologyUrl) {
+  const safePrompt = JSON.stringify(prompt).replace(/</g, '\\u003c');
+  return `<div class="cv-actions"><button type="button" class="match-action" id="open-match"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 3.5h9l4 4V14M5 3.5v17h9M14 3.5V8h4M8 11h6M8 14h4"/><path d="m18 16 .7 1.8L20.5 18.5l-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7L18 16Z"/><path d="M21 13v2M20 14h2"/></svg><span class="match-label">Match to your role</span><span class="match-label-short">Match role</span></button>${bookCall}</div>
+<dialog class="match-dialog" id="match-dialog" aria-labelledby="match-title" aria-describedby="match-description">
+  <div class="match-dialog-inner"><button type="button" class="match-close" id="close-match" aria-label="Close dialog">×</button>
+    <h2 id="match-title">Match to your role</h2>
+    <p id="match-description">Paste a job description, copy the evaluation prompt, then use it with your preferred AI assistant. The prompt includes my full CV and asks for an evidence-based assessment of strengths and gaps.</p>
+    <label for="match-jd">Job description <span>(optional)</span></label>
+    <textarea id="match-jd" rows="7" placeholder="Paste your job description here"></textarea>
+    <p class="match-note">Your job description stays in this browser until you choose to paste the copied prompt into an AI assistant.</p>
+    <button type="button" class="match-copy" id="copy-match">Copy evaluation prompt</button>
+    <p class="match-feedback" id="match-feedback" role="status" aria-live="polite"></p>
+    <p class="match-providers">Open an AI assistant: <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" data-match-provider="ChatGPT">ChatGPT</a> · <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer" data-match-provider="Claude">Claude</a> · <a href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" data-match-provider="Gemini">Gemini</a></p>
+    <p class="match-source">Based on the <a href="${escape(methodologyUrl)}" target="_blank" rel="noopener noreferrer">open-source evaluation methodology</a>.</p>
+  </div>
+</dialog>
+<script>(() => {
+  const prompt = ${safePrompt};
+  const dialog = document.getElementById('match-dialog');
+  const opener = document.getElementById('open-match');
+  const feedback = document.getElementById('match-feedback');
+  const track = (name, data) => { if (window.umami?.track) window.umami.track(name, data); };
+  opener.addEventListener('click', () => { dialog.showModal(); track('jd-match-open'); });
+  document.getElementById('close-match').addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => { feedback.textContent = ''; opener.focus(); });
+  dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+  document.getElementById('copy-match').addEventListener('click', async () => {
+    const jd = document.getElementById('match-jd').value.trim();
+    const text = prompt.replace('[Paste the job description here]', jd || '[Paste the job description here]');
+    try {
+      await navigator.clipboard.writeText(text);
+      feedback.textContent = 'Evaluation prompt copied.';
+      track('jd-match-prompt-copy');
+    } catch {
+      feedback.textContent = 'Could not copy automatically. Check browser clipboard permissions and try again.';
+    }
+  });
+  dialog.querySelectorAll('[data-match-provider]').forEach(link => link.addEventListener('click', () =>
+    track('jd-match-provider-click', { provider: link.dataset.matchProvider })));
+})();</script>`;
+}
+
 function scope(work, skillNames) {
   const summary = work.summary?.trim();
   const skills = (work.skills || []).slice(0, 8).map(skill => escape(skillNames.get(skill) || skill)).join(', ');
@@ -179,7 +221,7 @@ function scope(work, skillNames) {
     (skills ? '<span class="work-skills">' + skills + '</span>' : '') + '</div>' + prose(summary);
 }
 
-function render(resume, { interactive = false, keywords = [] } = {}) {
+function render(resume, { interactive = false, keywords = [], matchPrompt = '', methodologyUrl = '' } = {}) {
   const { basics = {}, skills = [], languages = [], projects = [], work = [], education = [],
     certificates = [], interests = [], volunteer = [], awards = [], publications = [], references = [] } = resume;
   const skillNames = new Map(skills.filter(skill => skill.id).map(skill => [skill.id, skill.name]));
@@ -216,7 +258,7 @@ function render(resume, { interactive = false, keywords = [] } = {}) {
     // section('Interests', list(interests.map(i => [escape(i.name), (i.keywords || []).map(escape).join(', ')].filter(Boolean).join(' — ')))),
     // section('References', references.map(r => entry(escape(r.name), [], prose(r.reference))).join(''))
   ];
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title>${interactive ? '<link rel="alternate" type="text/markdown" href="/resume.md" title="Markdown resume">' + socialMeta(basics) : ''}<style>${css}</style></head><body>${interactive ? toolbar(keywords) : ''}<main>${header(basics)}${sections.join('')}</main>${interactive ? bookCall + filterScript : ''}</body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title>${interactive ? '<link rel="alternate" type="text/markdown" href="/resume.md" title="Markdown resume">' + socialMeta(basics) : ''}<style>${css}</style></head><body>${interactive ? toolbar(keywords) : ''}<main>${header(basics)}${sections.join('')}</main>${interactive ? matchUi(matchPrompt, methodologyUrl) + filterScript : ''}</body></html>`;
 }
 
 module.exports = { render, pdfRenderOptions: { format: 'A4', preferCSSPageSize: true, mediaType: 'print' } };

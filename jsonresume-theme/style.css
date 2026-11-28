@@ -59,16 +59,42 @@ mark { background: #e0f2eb; color: inherit; border-bottom: 1px solid #598878; }
   .keyword-list button:last-child { margin-right: auto; }
   .keyword-list button:hover, .keyword-list button:focus-visible { border-color: #215347; outline-color: #215347; }
   .keyword-list button[aria-pressed="true"] { background: #215347; border-color: #215347; color: #fff; }
-  .book-call { position: fixed; right: 20px; bottom: 20px; z-index: 20; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 16px; border-radius: 999px; background: #215347; box-shadow: 0 3px 10px #0003; color: #fff; font: 600 10pt/1.2 Inter, Arial, sans-serif; text-decoration: none; white-space: nowrap; }
+  .cv-actions { position: fixed; right: 20px; bottom: 20px; z-index: 20; display: flex; flex-direction: column; align-items: stretch; gap: 8px; }
+  .book-call, .match-action { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 10px 16px; border-radius: 999px; box-shadow: 0 3px 10px #0003; font: 600 10pt/1.2 Inter, Arial, sans-serif; text-decoration: none; white-space: nowrap; cursor: pointer; }
+  .book-call { border: 1px solid #215347; background: #215347; color: #fff; }
+  .match-action { border: 1px solid #215347; background: #fff; color: #215347; }
+  .match-action:hover { background: #e0f2eb; }
+  .match-label-short { display: none; }
   .book-call:hover { background: #183e35; box-shadow: 0 5px 14px #0003; }
-  .book-call:focus-visible { outline: 3px solid #215347; outline-offset: 3px; box-shadow: 0 0 0 5px #fff; }
-  .book-call svg { flex: none; }
+  .book-call:focus-visible, .match-action:focus-visible { outline: 3px solid #215347; outline-offset: 3px; box-shadow: 0 0 0 5px #fff; }
+  .book-call svg, .match-action svg { flex: none; }
+  .match-dialog { width: min(540px, calc(100vw - 32px)); max-height: min(90vh, 800px); padding: 0; border: 1px solid #b5c5cd; border-radius: 14px; color: #111; box-shadow: 0 12px 40px #0004; }
+  .match-dialog::backdrop { background: #102b25a8; }
+  .match-dialog-inner { padding: 28px; }
+  .match-dialog h2 { padding-right: 32px; margin-bottom: 12px; }
+  .match-dialog p { line-height: 1.45; margin: 0 0 14px; }
+  .match-dialog label { display: block; font-weight: 700; margin-bottom: 6px; }
+  .match-dialog label span, .match-note { color: #596b82; font-weight: normal; }
+  .match-dialog textarea { display: block; width: 100%; min-height: 130px; padding: 10px; margin-bottom: 8px; border: 1px solid #b5c5cd; border-radius: 6px; font: inherit; resize: vertical; }
+  .match-dialog button { cursor: pointer; }
+  .match-close { float: right; width: 44px; height: 44px; margin: -12px -12px 0 0; border: 0; background: transparent; color: #254454; font-size: 25px; }
+  .match-copy { min-height: 44px; padding: 10px 16px; border: 1px solid #215347; border-radius: 999px; background: #215347; color: #fff; font: 600 10pt Inter, Arial, sans-serif; }
+  .match-copy:hover { background: #183e35; }
+  .match-dialog :focus-visible { outline: 3px solid #215347; outline-offset: 2px; }
+  .match-feedback { min-height: 1.4em; margin: 8px 0 !important; color: #215347; }
+  .match-providers a, .match-source a { color: #215347; }
 }
 @media screen and (max-width: 640px) {
-  body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+  body { padding-bottom: calc(92px + env(safe-area-inset-bottom)); }
   .toolbar-inner { padding: 10px 20px; }
-  .book-call { right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); }
+  .cv-actions { right: 0; bottom: 0; left: 0; flex-direction: row; gap: 8px; padding: 10px max(12px, env(safe-area-inset-right)) calc(10px + env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); background: #fff; border-top: 1px solid #d5dce2; }
+  .cv-actions > * { flex: 1; }
+  .match-dialog-inner { padding: 20px; }
+}
+@media screen and (max-width: 380px) {
+  .match-label { display: none; }
+  .match-label-short { display: inline; }
 }
 @media print {
-  .keyword-toolbar, .book-call { display: none; }
+  .keyword-toolbar, .cv-actions, .match-dialog { display: none !important; }
 }
