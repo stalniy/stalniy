@@ -46,9 +46,11 @@ function section(title, content, className = '') {
   return content && `<section class="${className}"><h2>${title}</h2><div class="section-body">${content}</div></section>`;
 }
 
-function entry(title, metadata, content = '') {
+function entry(title, metadata, content = '', focusTopics = [], filterKeywords, ownKeywords) {
   const details = metadata.filter(Boolean).map(value => `<span class="meta">${value}</span>`).join('');
-  return `<article><h3>${title}${details}</h3>${content}</article>`;
+  const focus = focusTopics.length ? `<p class="focus-topics">${focusTopics.map(escape).join(' · ')}</p>` : '';
+  const filter = filterKeywords ? ` data-filter-entry data-keywords="${escape(JSON.stringify(filterKeywords))}" data-own-keywords="${escape(JSON.stringify(ownKeywords || []))}"` : '';
+  return `<article${filter}><h3>${title}${details}</h3>${focus}${content}</article>`;
 }
 
 function date(value = '') {
@@ -97,8 +99,54 @@ function skillRows(skills) {
   return list(rows, 'skills');
 }
 
-function highlights(item) {
-  return list((item.highlights || []).map(inline));
+function highlights(item, interactive = false) {
+  const marked = new Set(item.custom?.focusHighlights);
+  return list((item.highlights || []).map((line, index) => {
+    const content = marked.has(index) ? '<mark>' + inline(line) + '</mark>' : inline(line);
+    const keywords = item.custom?.filterHighlightKeywords?.[index];
+    return interactive && keywords ? `<span data-highlight-keywords="${escape(JSON.stringify(keywords))}">${content}</span>` : content;
+  }));
+}
+
+const filterScript = `<script>
+(() => {
+  const toolbar = document.querySelector('.keyword-toolbar');
+  const buttons = [...toolbar.querySelectorAll('[data-keyword]')];
+  const entries = [...document.querySelectorAll('[data-filter-entry]')];
+  const selected = new Set();
+  const matches = keywords => keywords.some(keyword => selected.has(keyword));
+  const keywordsOf = element => JSON.parse(element.dataset.keywords || '[]');
+
+  toolbar.addEventListener('click', event => {
+    const button = event.target.closest('[data-keyword]');
+    if (!button || !toolbar.contains(button)) return;
+    const keyword = button.dataset.keyword;
+    if (!keyword) selected.clear();
+    else if (selected.has(keyword)) selected.delete(keyword);
+    else selected.add(keyword);
+
+    for (const chip of buttons) {
+      chip.setAttribute('aria-pressed', String(chip.dataset.keyword ? selected.has(chip.dataset.keyword) : !selected.size));
+    }
+    for (const entry of entries) {
+      const ownMatch = matches(JSON.parse(entry.dataset.ownKeywords));
+      entry.hidden = selected.size > 0 && !matches(keywordsOf(entry));
+      for (const highlight of entry.querySelectorAll('[data-highlight-keywords]')) {
+        highlight.parentElement.hidden = !entry.hidden && selected.size > 0 && !ownMatch &&
+          !matches(JSON.parse(highlight.dataset.highlightKeywords));
+      }
+    }
+    for (const section of document.querySelectorAll('.filter-section')) {
+      section.querySelector('.filter-empty').hidden = [...section.querySelectorAll('[data-filter-entry]')].some(entry => !entry.hidden);
+    }
+  });
+})();
+</script>`;
+
+function toolbar(keywords) {
+  const chips = keywords.map(([keyword, label]) =>
+    `<button type="button" data-keyword="${escape(keyword)}" aria-pressed="false">${escape(String(label).replace(/-/g, ' '))}</button>`).join('');
+  return `<nav class="keyword-toolbar" aria-label="Filter resume by keyword"><div class="toolbar-inner"><div class="keyword-list"><button type="button" data-keyword="" aria-pressed="true">All</button>${chips}</div></div></nav>`;
 }
 
 function scope(work, skillNames) {
@@ -109,7 +157,7 @@ function scope(work, skillNames) {
     (skills ? '<span class="work-skills">' + skills + '</span>' : '') + '</div>' + prose(summary);
 }
 
-function render(resume) {
+function render(resume, { interactive = false, keywords = [] } = {}) {
   const { basics = {}, skills = [], languages = [], projects = [], work = [], education = [],
     certificates = [], interests = [], volunteer = [], awards = [], publications = [], references = [] } = resume;
   const skillNames = new Map(skills.filter(skill => skill.id).map(skill => [skill.id, skill.name]));
@@ -121,14 +169,18 @@ function render(resume) {
       [w.position && escape(w.name), escape(place(w.location)), period(w)],
       (w.description?.trim() ? '<div class="project-description">' + prose(w.description) + '</div>' : '') +
       scope(w, skillNames) +
-      (w.highlights?.some(Boolean) ? '<h5>Achievements</h5>' + highlights(w) : '')),
-    ).join(''), 'experience'),
+      (w.highlights?.some(Boolean) ? '<h5>Achievements</h5>' + highlights(w, interactive) : ''), w.custom?.focusTopics,
+      interactive ? w.custom?.filterKeywords || [] : undefined, w.custom?.filterOwnKeywords),
+    ).join('') + (interactive ? '<p class="filter-empty" hidden>No experience matches these keywords.</p>' : ''),
+    interactive ? 'experience filter-section' : 'experience'),
     section('Projects I\'m proud of', projects.map(p => entry(
       link(p.name, p.url),
       // resume-cli aliases summary and description before calling the theme.
       [inline(p.custom?.label || (p.description?.trim() !== p.summary?.trim() && p.description?.trim()) || p.type)],
-      prose(p.summary) + highlights(p)
-    )).join('')),
+      prose(p.summary) + highlights(p, interactive), p.custom?.focusTopics,
+      interactive ? p.custom?.filterKeywords || [] : undefined, p.custom?.filterOwnKeywords
+    )).join('') + (interactive ? '<p class="filter-empty" hidden>No projects match these keywords.</p>' : ''),
+    interactive ? 'filter-section' : ''),
     section('Professional Skills', skillRows(skills)),
     section('Education', education.map(e => entry(escape([e.studyType, e.area].filter(Boolean).join(' in ')),
       [link(e.institution, e.url), period(e)], prose(e.summary) + list((e.courses || []).map(inline)))).join('')),
@@ -142,7 +194,7 @@ function render(resume) {
     // section('Interests', list(interests.map(i => [escape(i.name), (i.keywords || []).map(escape).join(', ')].filter(Boolean).join(' — ')))),
     // section('References', references.map(r => entry(escape(r.name), [], prose(r.reference))).join(''))
   ];
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title><style>${css}</style></head><body><main>${header(basics)}${sections.join('')}</main></body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title><style>${css}</style></head><body>${interactive ? toolbar(keywords) : ''}<main>${header(basics)}${sections.join('')}</main>${interactive ? filterScript : ''}</body></html>`;
 }
 
 module.exports = { render, pdfRenderOptions: { format: 'A4', preferCSSPageSize: true, mediaType: 'print' } };

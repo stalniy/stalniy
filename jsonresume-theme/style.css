@@ -45,3 +45,22 @@ li { break-inside: avoid; }
 .experience .scope-row h5 { margin: 0; }
 .scope-row:has(h5) { break-after: avoid; }
 .work-skills { margin-left: auto; text-align: right; }
+.focus-topics { font-weight: bold; color: #215347; }
+mark { background: #e0f2eb; color: inherit; border-bottom: 1px solid #598878; }
+[hidden] { display: none !important; }
+.filter-empty { color: #596b82; font-style: italic; }
+@media screen {
+  .keyword-toolbar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #d5dce2; box-shadow: 0 2px 8px #0001; }
+  .toolbar-inner { margin: 0 auto; padding: 10px 42pt 10px 49pt; }
+  .toolbar-inner > strong { display: block; margin-bottom: 7px; font-size: 10pt; }
+  .keyword-list { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: thin; justify-content: center; }
+  .keyword-list button { flex: none; border: 1px solid #b5c5cd; border-radius: 999px; background: #fff; color: #254454; padding: 4px 9px; font: inherit; cursor: pointer; }
+  .keyword-list button:hover, .keyword-list button:focus-visible { border-color: #215347; outline-color: #215347; }
+  .keyword-list button[aria-pressed="true"] { background: #215347; border-color: #215347; color: #fff; }
+}
+@media screen and (max-width: 640px) {
+  .toolbar-inner { padding: 10px 20px; }
+}
+@media print {
+  .keyword-toolbar { display: none; }
+}

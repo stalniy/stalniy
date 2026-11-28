@@ -10,8 +10,38 @@ if (!resume || typeof resume !== 'object' || Array.isArray(resume)) {
   throw new Error('resume.yaml must contain a resume object');
 }
 
-const json = JSON.stringify(resume, null, 2) + '\n';
-const html = render(resume) + '\n';
+function normalize(keyword) {
+  return String(keyword).trim().toLowerCase().replace(/\s+/g, '-');
+}
 
-fs.writeFileSync(path.join(root, 'resume.json'), json);
-fs.writeFileSync(path.join(root, 'resume.html'), html);
+const keywordLabels = new Map();
+const keywordCounts = new Map();
+for (const section of ['work', 'projects']) {
+  resume[section] = (resume[section] || []).map(item => {
+    const { highlights, ...custom } = item.custom || {};
+    const ownKeywords = item.keywords || [];
+    const highlightKeywords = (highlights || []).map(highlight => highlight.keywords || []);
+    for (const keyword of [...ownKeywords, ...highlightKeywords.flat()]) {
+      const key = normalize(keyword);
+      if (!keywordLabels.has(key)) keywordLabels.set(key, keyword);
+      keywordCounts.set(key, (keywordCounts.get(key) || 0) + 1);
+    }
+    return {
+      ...item,
+      highlights: highlights ? highlights.map(highlight => highlight.summary) : item.highlights,
+      custom: {
+        ...custom,
+        filterKeywords: [...new Set([...ownKeywords, ...highlightKeywords.flat()].map(normalize))],
+        filterOwnKeywords: [...new Set(ownKeywords.map(normalize))],
+        filterHighlightKeywords: highlightKeywords.map(keywords => [...new Set(keywords.map(normalize))])
+      }
+    };
+  });
+}
+
+fs.writeFileSync(path.join(root, 'resume.json'), JSON.stringify(resume, null, 2) + '\n');
+fs.writeFileSync(path.join(root, 'resume.html'), render(resume, {
+  interactive: true,
+  keywords: [...keywordLabels].sort((a, b) =>
+    keywordCounts.get(b[0]) - keywordCounts.get(a[0]) || a[1].localeCompare(b[1]))
+}) + '\n');

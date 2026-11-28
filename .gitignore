@@ -4,3 +4,6 @@ public
 node_modules/
 resume.json
 resume.html
+resume.focus.json
+resume.focus.html
+resume.focus.pdf

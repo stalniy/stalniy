@@ -37,45 +37,71 @@ work:
     summary: |
       Shared ownership of Akash Console services in a 3 developer team and served as the primary owner of the TypeScript blockchain SDK.
       **Worked directly with customers and stakeholders**, took features from discovery through production rollout using feature flags and monitoring, maintained Kubernetes infrastructure, and participated in on-call support.
-    highlights:
-      - |-
-        **Reduced production error alerts by 75%** by identifying a transaction issue that could leave customers charged without receiving service,
-        coordinating the blockchain change with the VP of Engineering, and implementing and deploying unordered transactions in Akash Console.
-      - |-
-        **Drove discovery, designed the architecture, and implemented a unified TypeScript SDK** for Akash Console and the Akash open-source community.
-        Consolidated two overlapping libraries into one SDK with browser and Node.js support, TypeScript types, and lazy loading. Coordinated with 3 open-source projects and designed support for gRPC and gRPC Gateway.
-      - |-
-        **Designed and shipped encrypted storage for Akash Console deployment secrets**, moving them out of plaintext browser localStorage while preserving public API compatibility.
-        Used per-user data encryption keys wrapped by Cloud KMS to limit the impact of a compromised key and allow KMS key rotation without re-encrypting deployment secrets.
-        Bound each ciphertext to its owner and record.
-      - |-
-        **Designed and shipped a backend service that discovered and monitored 2,000+ Akash providers**, keeping their available resources, attributes, and availability up to date in PostgreSQL, in real time.
-        Ported the provider's Golang matching logic to TypeScript so Akash Console could identify potential bidders in about 100 ms, before users submitted an on-chain deployment that could take up to 5 seconds.
-      - |-
-        **Implemented security protection** against supply-chain attacks, code vulnerabilities, and exposed secrets as AI use in development grew by integrating Snyk, Socket, CodeQL, and Secretlint into CI.
-      - |-
-        **Implemented runtime security controls** in all Node.js microservices by utilizing Node.js permission system. Worked consistently in both dev and prod environments.
-      - |-
-        **Increased weekly deployments from 16 to 40** and reduced CI wait time by an estimated 2.6 hours per week by replacing Webpack with tsup, Jest with Vitest, and adding GitHub merge queue support.
-        Implemented the migration manually on the first app, then used AI to help spread it out over other apps.
-      - |-
-        **Protected deployment secrets from provider impersonation** by implementing mTLS certificate validation in Akash Console's provider proxy.
-        Wrote network-level tests before refactoring the single-file Express service. The proxy verified provider identity against the blockchain and rejected requests when a provider's certificate was missing or invalid.
-      - |-
-        **Detected and blocked an attempt to reach internal Kubernetes services** through Akash Console’s public provider proxy.
-        Identified unusual request patterns while reviewing production alerts, then added URL validation and DNS checks to block requests targeting internal services and IP addresses.
-        The requests began returning HTTP 400 and eventually stopped.
-      - |-
-        **Improved production stability** by migrating 8 microservices to strict TypeScript over several months, including shared packages.
-        Started with smaller services and enabled strict checking incrementally in larger applications, catching more errors at build time while feature development continued.
-        Production incident rate declined after the migration.
-      - |-
-        **Restored a customer's access to deployment logs** after reproducing a WebSocket failure triggered by an oversized cookie. Debugged the issue directly with the customer, tested and deployed the fix, and had the customer confirm that logs worked again.
-      - |-
-        **Diagnosed and fixed intermittent Akash Console API high latency** that pushed response times to 7–10 seconds and sometimes caused Kubernetes to restart containers after health-check timeouts.
-        Reproduced the issue locally with API load testing and event-loop delay tracing, then verified that affected requests responded in a few milliseconds in production.
-      - |-
-        **Reduced the risk of post-deployment failures** caused by differences between the Akash Chain SDK’s Go and TypeScript implementations by adding cross-language compatibility tests that checked TypeScript behavior against expected outputs from the Go test suite.
+      Used **AI spec-driven development** to implement Akash Console features from writing and grilling specifications to implementation and testing.
+    custom:
+      highlights:
+        - summary: |-
+            **Reduced production error alerts by 75%** by identifying a transaction issue that could leave customers charged without receiving service,
+            coordinating the blockchain change with the VP of Engineering, and implementing and deploying unordered transactions in Akash Console.
+          keywords: [distributed-systems, leadership]
+        - summary: |-
+            **Prevented failed blockchain transactions from leaving stale deployment records in Akash Console.**
+            Claude recommended a periodic cleanup job, but our prototype had to revisit a growing table because deployment settings did not record whether creation succeeded on-chain.
+            I chose a transactional outbox so each new record and its pg-boss cleanup job committed together.
+            A successful broadcast canceled the job. After a failure or crash, the worker checked the chain before deleting the record, without waiting for a periodic scan.
+          keywords: [distributed-systems, agentic-engineering]
+        - summary: |-
+            **Introduced trial lifecycle emails in Akash Console**, including a reminder scheduled seven days before each trial expired.
+            Integrated pg-boss to schedule background jobs and checked trial status at execution time to skip obsolete reminders.
+            Made email delivery idempotent by sending Novu the same idempotency key for each retry, derived from the user ID and notification event.
+          keywords: [distributed-systems, product-engineering]
+        - summary: |-
+            **Drove discovery, designed the architecture, and implemented a unified TypeScript SDK** for Akash Console and the Akash open-source community.
+            Consolidated two overlapping libraries into one SDK with browser and Node.js support, TypeScript types, and lazy loading. Coordinated with 3 open-source projects and designed support for gRPC and gRPC Gateway.
+          keywords: [platform-engineering, leadership]
+        - summary: |-
+            **Designed and shipped encrypted storage for Akash Console deployment secrets**, moving them out of plaintext browser localStorage while preserving public API compatibility.
+            Used per-user data encryption keys wrapped by Cloud KMS to limit the impact of a compromised key and allow KMS key rotation without re-encrypting deployment secrets.
+            Bound each ciphertext to its owner and record.
+          keywords: [security, agentic-engineering]
+        - summary: |-
+            **Designed and shipped a backend service that discovered and monitored 2,000+ Akash providers**, keeping their available resources, attributes, and availability up to date in PostgreSQL, in real time.
+            Ported the provider's Golang matching logic to TypeScript so Akash Console could identify potential bidders in about 100 ms, before users submitted an on-chain deployment that could take up to 5 seconds.
+          keywords: [distributed-systems, agentic-engineering]
+        - summary: |-
+            **Implemented security protection** against supply-chain attacks, code vulnerabilities, and exposed secrets as AI use in development grew by integrating Snyk, Socket, CodeQL, and Secretlint into CI.
+          keywords: [security, platform-engineering]
+        - summary: |-
+            **Implemented runtime security controls** in all Node.js microservices by utilizing Node.js permission system. Worked consistently in both dev and prod environments.
+          keywords: [security, agentic-engineering]
+        - summary: |-
+            **Increased weekly deployments from 16 to 40** and reduced CI wait time by an estimated 2.6 hours per week by replacing Webpack with tsup, Jest with Vitest, and adding GitHub merge queue support.
+            Implemented the migration manually on the first app, then used AI to help spread it out over other apps.
+          keywords: [platform-engineering, agentic-engineering]
+        - summary: |-
+            **Protected deployment secrets from provider impersonation** by implementing mTLS certificate validation in Akash Console's provider proxy.
+            Wrote network-level tests before refactoring the single-file Express service. The proxy verified provider identity against the blockchain and rejected requests when a provider's certificate was missing or invalid.
+          keywords: [security]
+        - summary: |-
+            **Detected and blocked an attempt to reach internal Kubernetes services** through Akash Console’s public provider proxy.
+            Identified unusual request patterns while reviewing production alerts, then added URL validation and DNS checks to block requests targeting internal services and IP addresses.
+            The requests began returning HTTP 400 and eventually stopped.
+          keywords: [security]
+        - summary: |-
+            **Improved production stability** by migrating 8 microservices to strict TypeScript over several months, including shared packages.
+            Started with smaller services and enabled strict checking incrementally in larger applications, catching more errors at build time while feature development continued.
+            Production incident rate declined after the migration.
+          keywords: [platform-engineering]
+        - summary: |-
+            **Restored a customer's access to deployment logs** after reproducing a WebSocket failure triggered by an oversized cookie. Debugged the issue directly with the customer, tested and deployed the fix, and had the customer confirm that logs worked again.
+          keywords: [product-engineering]
+        - summary: |-
+            **Diagnosed and fixed intermittent Akash Console API high latency** that pushed response times to 7–10 seconds and sometimes caused Kubernetes to restart containers after health-check timeouts.
+            Reproduced the issue locally with API load testing and event-loop delay tracing, then verified that affected requests responded in a few milliseconds in production.
+          keywords: [product-engineering]
+        - summary: |-
+            **Reduced the risk of post-deployment failures** caused by differences between the Akash Chain SDK’s Go and TypeScript implementations by adding cross-language compatibility tests that checked TypeScript behavior against expected outputs from the Go test suite.
+          keywords: [platform-engineering, distributed-systems]
     skills: [ts-js, React.js, Next.js, REST, gRPC, Protobuf, PostgreSQL, Docker, Kubernetes, GCP, OTEL, GitHub Actions, Grafana, Prometheus, Jest, Vitest, Helm, Playwright]
 
   - name: Printify Inc.
@@ -91,21 +117,27 @@ work:
       to rolling out changes behind feature flags. Shaped frontend architecture and
       REST API contracts, coordinated changes across squads and application modules,
       and monitored and responded to frontend production incidents.
-    highlights:
-      - |-
-        **Enabled merchants to choose and pay in a supported currency** by leading the frontend rollout of multi-currency support across squads.
-        Designed how currency selection was shared across modules and layers.
-      - |-
-        **Improved page load times and reliability** by migrating legacy Backbone functionality to Angular.
-        Reconstructed undocumented behavior from the existing code, added unit tests for the Angular implementations, and rolled out changes behind feature flags while monitoring production.
-      - |-
-        **Decreased time to delivery for frontend changes** by introducing GitHub’s merge queue for 20+ frontend developers.
-        Eliminated the need to update PR branches manually after every change to `main`, helping increase frontend deployments from 10 to 30 per day.
-      - |-
-        **Decreased time to delivery for frontend releases** by reusing release-versioned Angular assets built in CI.
-        This cut the deployment pipeline from about 10 minutes to 1 minute.
-      - |-
-        **Led 3 internal remote meetups** on building TypeScript backends and estimating engineering work, using examples from my own projects when Printify decided to write several services in Node.js.
+    custom:
+      highlights:
+        - summary: |-
+            **Enabled merchants to choose and pay in a supported currency** by leading the frontend rollout of multi-currency support across squads.
+            Designed how currency selection was shared across modules and layers.
+          keywords: [product-engineering, leadership]
+        - summary: |-
+            **Improved page load times and reliability** by migrating legacy Backbone functionality to Angular.
+            Reconstructed undocumented behavior from the existing code, added unit tests for the Angular implementations, and rolled out changes behind feature flags while monitoring production.
+          keywords: [product-engineering]
+        - summary: |-
+            **Decreased time to delivery for frontend changes** by introducing GitHub’s merge queue for 20+ frontend developers.
+            Eliminated the need to update PR branches manually after every change to `main`, helping increase frontend deployments from 10 to 30 per day.
+          keywords: [platform-engineering]
+        - summary: |-
+            **Decreased time to delivery for frontend releases** by reusing release-versioned Angular assets built in CI.
+            This cut the deployment pipeline from about 10 minutes to 1 minute.
+          keywords: [platform-engineering]
+        - summary: |-
+            **Led 3 internal remote meetups** on building TypeScript backends and estimating engineering work, using examples from my own projects when Printify decided to write several services in Node.js.
+          keywords: [leadership]
     skills: [ts-js, Angular, REST, Cypress, Jest]
 
   - name: First Asset HR
@@ -120,17 +152,22 @@ work:
       **Worked directly with the company owner** to clarify requirements and documented architectural decisions for approval.
       Refined the PostgreSQL library's query interface with feedback from the developers who used it to compose dynamic SQL with a tagged template function.
       Documented the libraries, reviewed code, and integrated my results across all applications.
-    highlights:
-      - |-
-        **Provided the backend team a single, type-safe way to access PostgreSQL** by designing and building its data access library.
-        The same interface covered ordinary and dynamic columns, stored as JSONB object fields, so adding a field required no database migration.
-      - |-
-        **Provided cache invalidation across horizontally scaled backend instances**, so an update on one instance told the others to discard stale local data.
-        Implemented this with PostgreSQL LISTEN/NOTIFY, reusing the existing database and avoiding the need for a managed Redis cluster.
-      - |-
-        **Enabled the React app to request GraphQL operations by ID** by building tooling that extracted queries at build time, assigned each one an identifier, and replaced raw queries in client requests with those IDs.
-      - |-
-        **Standardized release, linting, and formatting configuration across all applications** by building a shared CLI for semantic-release, ESLint, and Prettier and integrating it into every app.
+    custom:
+      highlights:
+        - summary: |-
+            **Provided the backend team a single, type-safe way to access PostgreSQL** by designing and building its data access library.
+            The same interface covered ordinary and dynamic columns, stored as JSONB object fields, so adding a field required no database migration.
+          keywords: [platform-engineering]
+        - summary: |-
+            **Provided cache invalidation across horizontally scaled backend instances**, so an update on one instance told the others to discard stale local data.
+            Implemented this with PostgreSQL LISTEN/NOTIFY, reusing the existing database and avoiding the need for a managed Redis cluster.
+          keywords: [platform-engineering, distributed-systems]
+        - summary: |-
+            **Enabled the React app to request GraphQL operations by ID** by building tooling that extracted queries at build time, assigned each one an identifier, and replaced raw queries in client requests with those IDs.
+          keywords: [platform-engineering]
+        - summary: |-
+            **Standardized release, linting, and formatting configuration across all applications** by building a shared CLI for semantic-release, ESLint, and Prettier and integrating it into every app.
+          keywords: [platform-engineering]
     skills: [ts-js, GraphQL, PostgreSQL, GitHub Actions]
 
   - name: Infozahyst
@@ -144,19 +181,25 @@ work:
       Led a seven-person team spanning frontend, backend, QA, and DevOps. Managed hiring, one-on-ones, and performance reviews, led sprint activities, and prioritized technical debt.
       **Reported directly to the CTO**, a project stakeholder, and incorporated his feedback into the frontend and backend architecture for a graph-based analysis system.
       Documented design decisions and built the working Node.js application that served as the reference for the C# backend later.
-    highlights:
-      - |-
-        **Enabled analysts to define object types, model relationships and inheritance, and visually investigate connections between records**.
-        Designed and documented the frontend and backend architecture with input from the CTO, and built a working Node.js application that served as the reference implementation for later migration to C#.
-      - |-
-        **Discussed and agreed with each team member an individual development plan** through one-on-one meetings, assessing their performance, and agreeing together on what they would work on next.
-      - |-
-        **Established development process: planning, review, testing for each sprint.**
-        Led daily standups, introduced sprint planning and retrospectives, configured Jira automation,
-         expanded code review from the team lead alone to developers reviewing each other's changes, and established a testing strategy.
-      - |-
-        **Enabled relationship analysis for a customer using the system as a CRM** by implementing analytics in C# that counted relationships between objects matching specified conditions.
+    custom:
+      highlights:
+        - summary: |-
+            **Enabled analysts to define object types, model relationships and inheritance, and visually investigate connections between records**.
+            Designed and documented the frontend and backend architecture with input from the CTO, and built a working Node.js application that served as the reference implementation for later migration to C#.
+          keywords: [product-engineering, leadership]
+        - summary: |-
+            **Discussed and agreed with each team member an individual development plan** through one-on-one meetings, assessing their performance, and agreeing together on what they would work on next.
+          keywords: [people-management]
+        - summary: |-
+            **Established development process: planning, review, testing for each sprint.**
+            Led daily standups, introduced sprint planning and retrospectives, configured Jira automation,
+             expanded code review from the team lead alone to developers reviewing each other's changes, and established a testing strategy.
+          keywords: [leadership]
+        - summary: |-
+            **Enabled relationship analysis for a customer using the system as a CRM** by implementing analytics in C# that counted relationships between objects matching specified conditions.
+          keywords: [product-engineering]
     skills: [ts-js, C#, Vue.js, GraphQL, PostgreSQL, ElasticSearch, RabbitMQ, GitLab CI, Ansible, Jest, TestCafe]
+    keywords: [distributed-systems]
 
   - name: Namecheap Inc
     location: Lviv, Ukraine
@@ -169,13 +212,17 @@ work:
       Led a three-person internal engineering team that contributed to projects owned by other teams.
       Managed hiring, mentoring, one-on-ones, and performance reviews alongside hands-on development.
       The teams that owned the projects retained decision-making authority.
-    highlights:
-      - |-
-        **Built a lightweight website deployment system for the marketing team** using Contentful, terraform and AWS lambda functions.
-      - |-
-        **Cut Node.js end-to-end test runtime from several minutes to several seconds** by moving database migrations from before every test to suite startup.
-        Used disposable factories so each test managed its own db records.
+    custom:
+      highlights:
+        - summary: |-
+            **Built a lightweight website deployment system for the marketing team** using Contentful, terraform and AWS lambda functions.
+          keywords: [platform-engineering]
+        - summary: |-
+            **Cut Node.js end-to-end test runtime from several minutes to several seconds** by moving database migrations from before every test to suite startup.
+            Used disposable factories so each test managed its own db records.
+          keywords: [platform-engineering]
     skills: [ts-js, Vue.js, REST, MySQL, Docker, Terraform, Microservices, AWS, Jenkins]
+    keywords: [leadership, people-management, distributed-systems]
 
   - name: Ciklum (outstaff)
     location: Kyiv, Ukraine
@@ -189,19 +236,25 @@ work:
       Managed hiring, mentoring, one-on-ones, and performance reviews alongside hands-on feature development.
       **Worked directly with the customer** to plan and clarify requirements.
       Guided framework evaluation through prototypes, designed and documented the architecture for the web and hybrid mobile apps, and managed technical debt in the legacy Backbone client.
-    highlights:
-      - |-
-        **Eliminated the customer's OrientDB Enterprise support cost** and removed the need to keep access-control data in sync across two databases
-        by reimplementing access control in MongoDB using query conditions and denormalization.
-      - |-
-        **Gave the Backbone legacy client a clearer structure** by introducing Rivets components and adapting the existing application to use them.
-      - |-
-        **Enabled code reuse across the web and hybrid mobile app** by designing an Angular 2 and Ionic 2 architecture with a shared service layer and shared UI components.
-        I chose that approach after the team prototyped alternatives against its web, iOS, and Android requirements.
-      - |-
-        **Enabled the team to deliver updates to the hybrid app's web code and assets without waiting for a new app store review** by integrating Microsoft CodePush.
-        For releases that required store review, implemented the build and submission workflows for both Android and iOS using fastlane.
+    custom:
+      highlights:
+        - summary: |-
+            **Eliminated the customer's OrientDB Enterprise support cost** and removed the need to keep access-control data in sync across two databases
+            by reimplementing access control in MongoDB using query conditions and denormalization.
+          keywords: [security]
+        - summary: |-
+            **Gave the Backbone legacy client a clearer structure** by introducing Rivets components and adapting the existing application to use them.
+          keywords: [product-engineering]
+        - summary: |-
+            **Enabled code reuse across the web and hybrid mobile app** by designing an Angular 2 and Ionic 2 architecture with a shared service layer and shared UI components.
+            I chose that approach after the team prototyped alternatives against its web, iOS, and Android requirements.
+          keywords: [platform-engineering]
+        - summary: |-
+            **Enabled the team to deliver updates to the hybrid app's web code and assets without waiting for a new app store review** by integrating Microsoft CodePush.
+            For releases that required store review, implemented the build and submission workflows for both Android and iOS using fastlane.
+          keywords: [platform-engineering]
     skills: [ts-js, Angular, Ionic, REST, MongoDB, fastlane, Apple Store, Google Play, Auth0, Jenkins, GitLab CI, Protractor.js, Mocha]
+    keywords: [leadership, people-management]
 
   - name: Global Logic (outsource)
     location: Kyiv, Ukraine
@@ -216,22 +269,28 @@ work:
       Six months into the role, I **was promoted** to proxy product owner while continuing to lead the team.
       **Worked with the product manager**, who gathered client needs and set roadmap priorities, to break planned work into epics and tasks.
       Wrote BDD scenarios in Jira that developers refined during planning and used to guide implementation and end-to-end testing.
-    highlights:
-      - |-
-        **Simplified permission management across a form-heavy application** by building a reusable form field that rendered an editable input for administrators and a formatted, read-only value for regular users.
-        Taught the team to apply SOLID principles during the refactor.
-        Together, we replaced repeated input and binding code with shared fields that behaved consistently across forms.
-      - |-
-        **Helped developers move faster during implementation** by breaking stakeholder requests into epics and tasks and writing BDD scenarios for each task in Jira.
-        Developers used planning sessions to clarify expected behavior, then used the same scenarios to write end-to-end tests.
-      - |-
-        **Equipped developers to take ownership of end-to-end testing ahead of the planned withdrawal of dedicated QA support.**
-        Built an internal Protractor library that modeled pages as reusable sections, forms, and controls.
-        The team used it to build a suite of 400+ end-to-end tests, including one that changed a video server's configuration and verified it after a 15-minute restart.
-      - |-
-        **Trained the customer's QA team in Israel on end-to-end testing** at the customer's request.
-        Delivered a multi-day, on-site workshop on the approach I had developed for the project.
+    custom:
+      highlights:
+        - summary: |-
+            **Simplified permission management across a form-heavy application** by building a reusable form field that rendered an editable input for administrators and a formatted, read-only value for regular users.
+            Taught the team to apply SOLID principles during the refactor.
+            Together, we replaced repeated input and binding code with shared fields that behaved consistently across forms.
+          keywords: [product-engineering, leadership, security]
+        - summary: |-
+            **Helped developers move faster during implementation** by breaking stakeholder requests into epics and tasks and writing BDD scenarios for each task in Jira.
+            Developers used planning sessions to clarify expected behavior, then used the same scenarios to write end-to-end tests.
+          keywords: [product-engineering, leadership]
+        - summary: |-
+            **Equipped developers to take ownership of end-to-end testing ahead of the planned withdrawal of dedicated QA support.**
+            Built an internal Protractor library that modeled pages as reusable sections, forms, and controls.
+            The team used it to build a suite of 400+ end-to-end tests, including one that changed a video server's configuration and verified it after a 15-minute restart.
+          keywords: [platform-engineering, leadership]
+        - summary: |-
+            **Trained the customer's QA team in Israel on end-to-end testing** at the customer's request.
+            Delivered a multi-day, on-site workshop on the approach I had developed for the project.
+          keywords: [leadership]
     skills: [ts-js, Angular, Redis, REST, Protractor.js, Mocha]
+    keywords: [people-management]
 
   - name: Daxx BV (outstaff)
     location: Kyiv, Ukraine
@@ -243,18 +302,23 @@ work:
     summary: |
       Owned frontend architecture and development for a white-label cloud telephony platform with separate applications for company administrators, providers, and users.
       **Worked directly with the customer** to clarify requirements, documented frontend design decisions, and mentored two frontend developers.
-    highlights:
-      - |-
-        **Enabled platform administrators, providers, and users to configure cloud IP telephony within their respective roles** by designing the frontend architecture for a white-label SaaS platform.
-        Each audience had a dedicated application with its own set of features.
-      - |-
-        **Enabled administrators to configure interactive voice response (IVR) call flows visually.**
-        Independently built the editor's frontend in Knockout.js.
-        Administrators could assign actions to keypad choices and rearrange the call flow by dragging actions within a tree.
-      - |-
-        **Enabled the team to reuse UI components and validation across the platform's role-specific applications** by designing a shared frontend library that each application extended.
-        Used Knockout.js to bind views and components, and RequireJS to load modules on demand.
+    custom:
+      highlights:
+        - summary: |-
+            **Enabled platform administrators, providers, and users to configure cloud IP telephony within their respective roles** by designing the frontend architecture for a white-label SaaS platform.
+            Each audience had a dedicated application with its own set of features.
+          keywords: [product-engineering]
+        - summary: |-
+            **Enabled administrators to configure interactive voice response (IVR) call flows visually.**
+            Independently built the editor's frontend in Knockout.js.
+            Administrators could assign actions to keypad choices and rearrange the call flow by dragging actions within a tree.
+          keywords: [product-engineering]
+        - summary: |-
+            **Enabled the team to reuse UI components and validation across the platform's role-specific applications** by designing a shared frontend library that each application extended.
+            Used Knockout.js to bind views and components, and RequireJS to load modules on demand.
+          keywords: [platform-engineering]
     skills: [JavaScript, Knockout.js, REST, Jasmine, Gitlab CI]
+    keywords: [leadership]
 
   - name: Cogniance (outsource)
     location: Kyiv, Ukraine
@@ -266,6 +330,7 @@ work:
       Built features for both the admin panel and the user-facing frontend of an ad management system.
       Worked primarily on the admin panel, implementing Knockout.js views and the Ruby on Rails backend code that served them.
     skills: [JavaScript, Knockout.js, Rails (RoR), MySQL, REST, Jasmine]
+    keywords: [product-engineering]
 
   - name: Varien — X.commerce, Inc., an eBay company
     location: Kyiv, Ukraine
@@ -276,9 +341,11 @@ work:
     summary: |-
       Developed and maintained features for the Magento e-commerce platform in PHP.
       Fixed bugs and implemented requested improvements, including changes to the product import/export workflow.
-    highlights:
-      - |-
-        **Made it easier for merchants to import product catalogs from CSV files** by implementing a simpler version of Import/Export functionality.
+    custom:
+      highlights:
+        - summary: |-
+            **Made it easier for merchants to import product catalogs from CSV files** by implementing a simpler version of Import/Export functionality.
+          keywords: [product-engineering]
     skills: [PHP, MySQL, JavaScript]
 
   - name: SiOPT
@@ -290,6 +357,7 @@ work:
     summary: |-
       Website and platform development. Built a high-traffic web application from scratch using Symfony, MySQL, and Redis.
     skills: [PHP, MySQL, JavaScript, Symfony 1.4]
+    keywords: [product-engineering]
 
 education:
   - institution: International Management Academy
@@ -480,16 +548,19 @@ skills:
       group: Engineering leadership
   - name: Context engineering
     custom:
-      group: Agentic Software Engineering
+      group: Agentic Engineering
   - name: prompt engineering
     custom:
-      group: Agentic Software Engineering
+      group: Agentic Engineering
   - name: evaluation design
     custom:
-      group: Agentic Software Engineering
+      group: Agentic Engineering
+  - name: Spec-driven development
+    custom:
+      group: Agentic Engineering
   - name: agent workflows
     custom:
-      group: Agentic Software Engineering
+      group: Agentic Engineering
   - name: CI/CD
     custom:
       group: Developer productivity
@@ -522,13 +593,16 @@ projects:
     type: open source
     custom:
       label: Authorization tooling
-    highlights:
-      - Created and for nearly a decade have maintained [CASL](https://casl.js.org/), an open-source authorization library covering
-        the entire JavaScript/TypeScript stack, with 11M+ monthly npm downloads.
-      - Designed [UCAST](https://github.com/stalniy/ucast) to represent and evaluate authorization rules and translate conditions into SQL queries.
-        Its format was adopted by [Open Policy Agent](https://www.openpolicyagent.org/docs/filtering/ucast-syntax) and [Cerbos](https://www.cerbos.dev/ecosystem/ucast) for data filtering.
-      - Presented at JSFest conference on using CASL to implement authorization across the TypeScript stack, showing how developers could define authorization rules in one place and apply them across the application.
-    keywords: [TypeScript, Authorization]
+      highlights:
+        - summary: Created and for nearly a decade have maintained [CASL](https://casl.js.org/), an open-source authorization library covering
+            the entire JavaScript/TypeScript stack, with 11M+ monthly npm downloads.
+          keywords: [platform-engineering, security]
+        - summary: Designed [UCAST](https://github.com/stalniy/ucast) to represent and evaluate authorization rules and translate conditions into SQL queries.
+            Its format was adopted by [Open Policy Agent](https://www.openpolicyagent.org/docs/filtering/ucast-syntax) and [Cerbos](https://www.cerbos.dev/ecosystem/ucast) for data filtering.
+          keywords: [platform-engineering, security]
+        - summary: Presented at JSFest conference on using CASL to implement authorization across the TypeScript stack, showing how developers could define authorization rules in one place and apply them across the application.
+          keywords: [leadership]
+    keywords: [leadership, security]
 
   - name: AI skills
     startDate: "2026"
@@ -536,22 +610,26 @@ projects:
     roles: [Author]
     custom:
       label: Spec-Driven Development
-    highlights:
-      - Created [Agentic Software Engineering skills](https://github.com/stalniy/skills) for reviewing software specifications, identifying architectural risks, and
-        resolving ambiguous requirements before implementation.
-      - Developed behavioral evaluations for AI agents and techniques for reducing unnecessary complexity
-        while preserving architectural decisions.
+      highlights:
+        - summary: Created [Agentic Engineering skills](https://github.com/stalniy/skills) for reviewing software specifications, identifying architectural risks, and
+            resolving ambiguous requirements before implementation.
+          keywords: [platform-engineering]
+        - summary: Developed behavioral evaluations for AI agents and techniques for reducing unnecessary complexity
+            while preserving architectural decisions.
+          keywords: [platform-engineering]
 
   - name: Real-time Video Player for Dahua
     startDate: "2025"
     type: open source
     roles: [Author]
-    highlights:
-      - |-
-       **Created a real-time video player for Dahua cameras** that allowed me to view live video from Dahua cameras in Home Assistant without the noticeable delay.
-       Built on a third-party player for Dahua cameras and packaged it for personal use as an installable Home Assistant integration.
-       For the initial version, I compiled a custom WebAssembly build of FFmpeg to convert video into a browser-supported format.
-       But later, I rewrote playback to decode Dahua's RTSP-over-WebSocket stream in the browser using WebCodecs.
+    custom:
+      highlights:
+        - summary: |-
+            **Created a real-time video player for Dahua cameras** that allowed me to view live video from Dahua cameras in Home Assistant without the noticeable delay.
+            Built on a third-party player for Dahua cameras and packaged it for personal use as an installable Home Assistant integration.
+            For the initial version, I compiled a custom WebAssembly build of FFmpeg to convert video into a browser-supported format.
+            But later, I rewrote playback to decode Dahua's RTSP-over-WebSocket stream in the browser using WebCodecs.
+          keywords: [product-engineering]
 
   - name: Babysitter
     startDate: "2020"
@@ -559,20 +637,23 @@ projects:
     type: chatbot
     custom:
       label: Telegram bot
-    highlights:
-      - |-
-        **Gave my family a shared sleep log at no cost** by building a Telegram bot on the AWS Free Tier.
-        My wife, my daughter's grandmother, and I could each record when my daughter woke up or fell asleep with one tap.
-        We used daily and monthly summaries alongside reference sleep patterns to decide when to put her to bed and how long to let her sleep.
+      highlights:
+        - summary: |-
+            **Gave my family a shared sleep log at no cost** by building a Telegram bot on the AWS Free Tier.
+            My wife, my daughter's grandmother, and I could each record when my daughter woke up or fell asleep with one tap.
+            We used daily and monthly summaries alongside reference sleep patterns to decide when to put her to bed and how long to let her sleep.
+          keywords: [product-engineering]
 
   - name: "0 Step checkout"
     roles: [Author]
     startDate: "2012"
     type: Magento plugin
     summary: 0 Step Checkout provide One Page Checkout functionality for Magento, combine all the steps for checkout (including shopping cart) into one page only.
-    highlights:
-      - |-
-        **Let shoppers review their cart and complete checkout on a single page** by building an independent Magento plugin that combined the cart and checkout steps, removing the need to click through successive screens.
+    custom:
+      highlights:
+        - summary: |-
+            **Let shoppers review their cart and complete checkout on a single page** by building an independent Magento plugin that combined the cart and checkout steps, removing the need to click through successive screens.
+          keywords: [product-engineering]
 
 interests:
   - name: Open source
