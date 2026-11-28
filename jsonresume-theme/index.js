@@ -170,7 +170,7 @@ function toolbar(keywords) {
   return `<nav class="keyword-toolbar" aria-label="Filter resume by keyword"><div class="toolbar-inner"><div class="keyword-list"><button type="button" data-keyword="" aria-pressed="true">All</button>${chips}</div></div></nav>`;
 }
 
-const bookCall = `<a class="book-call" href="https://cal.com/sstotskyi/15min" target="_blank" rel="noopener noreferrer" data-umami-event="book-call-click"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg><span>Book a call</span></a>`;
+const bookCall = `<button type="button" class="book-call" data-umami-event="book-call-click" data-cal-link="sstotskyi/15min" data-cal-namespace="15min" data-cal-config='{"theme":"light","layout":"month_view","useSlotsViewOnSmallScreen":"true","theme":"auto"}'><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg><span>Book a call</span></button>`;
 
 function matchUi(prompt, methodologyUrl) {
   const safePrompt = JSON.stringify(prompt).replace(/</g, '\\u003c');
@@ -309,7 +309,17 @@ function render(resume, { interactive = false, keywords = [], matchPrompt = '', 
     // section('Interests', list(interests.map(i => [escape(i.name), (i.keywords || []).map(escape).join(', ')].filter(Boolean).join(' — ')))),
     // section('References', references.map(r => entry(escape(r.name), [], prose(r.reference))).join(''))
   ];
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title>${interactive ? '<link rel="alternate" type="text/markdown" href="/resume.md" title="Markdown resume">' + socialMeta(basics) : ''}<style>${css}</style></head><body>${interactive ? toolbar(keywords) : ''}<main>${header(basics)}${interactive ? researchAction() : ''}${sections.join('')}</main>${interactive ? matchUi(matchPrompt, methodologyUrl) + researchUi() + filterScript : ''}</body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title>${interactive ? '<link rel="alternate" type="text/markdown" href="/resume.md" title="Markdown resume">' + socialMeta(basics) : ''}<style>${css}</style></head><body>${interactive ? toolbar(keywords) : ''}<main>${header(basics)}${interactive ? researchAction() : ''}${sections.join('')}</main>${interactive ? matchUi(matchPrompt, methodologyUrl) + researchUi() + filterScript : ''}
+  <!-- Cal element-click embed code begins -->
+  <script type="text/javascript">
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api;p(cal.ns[namespace], ar);p(cal, ["initNamespace", namespace]);} else p(cal, ar); return;} p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", "15min", {origin:"https://app.cal.com"});
+    Cal.config = Cal.config || {};
+    Cal.config.forwardQueryParams = true;
+    Cal.ns["15min"]("ui", {"theme":"light","hideEventTypeDetails":true,"layout":"month_view"});
+    </script>
+    <!-- Cal element-click embed code ends -->
+  </body></html>`;
 }
 
 const pdfRenderOptions = {
