@@ -51,16 +51,24 @@ mark { background: #e0f2eb; color: inherit; border-bottom: 1px solid #598878; }
 .filter-empty { color: #596b82; font-style: italic; }
 @media screen {
   .keyword-toolbar { position: sticky; top: 0; z-index: 10; background: #fff; border-bottom: 1px solid #d5dce2; box-shadow: 0 2px 8px #0001; }
-  .toolbar-inner { margin: 0 auto; padding: 10px 42pt 10px 49pt; }
+  .toolbar-inner { margin: 0 auto; padding: 10px 42pt; }
   .toolbar-inner > strong { display: block; margin-bottom: 7px; font-size: 10pt; }
-  .keyword-list { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: thin; justify-content: center; }
+  .keyword-list { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: thin; }
   .keyword-list button { flex: none; border: 1px solid #b5c5cd; border-radius: 999px; background: #fff; color: #254454; padding: 4px 9px; font: inherit; cursor: pointer; }
+  .keyword-list button:first-child { margin-left: auto; }
+  .keyword-list button:last-child { margin-right: auto; }
   .keyword-list button:hover, .keyword-list button:focus-visible { border-color: #215347; outline-color: #215347; }
   .keyword-list button[aria-pressed="true"] { background: #215347; border-color: #215347; color: #fff; }
+  .book-call { position: fixed; right: 20px; bottom: 20px; z-index: 20; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 10px 16px; border-radius: 999px; background: #215347; box-shadow: 0 3px 10px #0003; color: #fff; font: 600 10pt/1.2 Inter, Arial, sans-serif; text-decoration: none; white-space: nowrap; }
+  .book-call:hover { background: #183e35; box-shadow: 0 5px 14px #0003; }
+  .book-call:focus-visible { outline: 3px solid #215347; outline-offset: 3px; box-shadow: 0 0 0 5px #fff; }
+  .book-call svg { flex: none; }
 }
 @media screen and (max-width: 640px) {
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
   .toolbar-inner { padding: 10px 20px; }
+  .book-call { right: max(12px, env(safe-area-inset-right)); bottom: max(12px, env(safe-area-inset-bottom)); }
 }
 @media print {
-  .keyword-toolbar { display: none; }
+  .keyword-toolbar, .book-call { display: none; }
 }

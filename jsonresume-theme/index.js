@@ -169,9 +169,11 @@ function toolbar(keywords) {
   return `<nav class="keyword-toolbar" aria-label="Filter resume by keyword"><div class="toolbar-inner"><div class="keyword-list"><button type="button" data-keyword="" aria-pressed="true">All</button>${chips}</div></div></nav>`;
 }
 
+const bookCall = `<a class="book-call" href="https://cal.com/sstotskyi/15min" target="_blank" rel="noopener noreferrer" data-umami-event="book-call-click"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18"/></svg><span>Book a call</span></a>`;
+
 function scope(work, skillNames) {
   const summary = work.summary?.trim();
-  const skills = (work.skills || []).slice(0, 10).map(skill => escape(skillNames.get(skill) || skill)).join(', ');
+  const skills = (work.skills || []).slice(0, 8).map(skill => escape(skillNames.get(skill) || skill)).join(', ');
   if (!summary && !skills) return '';
   return '<div class="scope-row">' + (summary ? '<h5>Scope</h5>' : '') +
     (skills ? '<span class="work-skills">' + skills + '</span>' : '') + '</div>' + prose(summary);
@@ -214,7 +216,7 @@ function render(resume, { interactive = false, keywords = [] } = {}) {
     // section('Interests', list(interests.map(i => [escape(i.name), (i.keywords || []).map(escape).join(', ')].filter(Boolean).join(' — ')))),
     // section('References', references.map(r => entry(escape(r.name), [], prose(r.reference))).join(''))
   ];
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title>${interactive ? '<link rel="alternate" type="text/markdown" href="/resume.md" title="Markdown resume">' + socialMeta(basics) : ''}<style>${css}</style></head><body>${interactive ? toolbar(keywords) : ''}<main>${header(basics)}${sections.join('')}</main>${interactive ? filterScript : ''}</body></html>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${escape(basics.name || 'Resume')}</title>${interactive ? '<link rel="alternate" type="text/markdown" href="/resume.md" title="Markdown resume">' + socialMeta(basics) : ''}<style>${css}</style></head><body>${interactive ? toolbar(keywords) : ''}<main>${header(basics)}${sections.join('')}</main>${interactive ? bookCall + filterScript : ''}</body></html>`;
 }
 
 module.exports = { render, pdfRenderOptions: { format: 'A4', preferCSSPageSize: true, mediaType: 'print' } };
