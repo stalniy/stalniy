@@ -21,7 +21,16 @@ test('research action follows contact links and stays out of print output', () =
   assert.match(css, /@media screen and \(max-width: 640px\)[\s\S]*?\.book-call, \.match-action \{ min-height: 44px;/);
   assert.match(html, /<dialog class="match-dialog research-dialog"[^>]*aria-labelledby="research-title"[^>]*aria-describedby="research-description"/);
   assert.match(html, /<details id="research-prompt-details"><summary>View research prompt<\/summary>/);
-  assert.match(html, /href="https:\/\/gemini\.google\.com\/" target="_blank" rel="noopener noreferrer"/);
+  assert.match(html, /<ol class="research-steps"><li>Copy the research prompt\.<\/li><li>Open your preferred AI assistant with web research enabled\.<\/li><li>Paste the prompt and start research\.<\/li><\/ol>/);
+  for (const [provider, url] of [
+    ['ChatGPT', 'https://chatgpt.com/'],
+    ['Gemini', 'https://gemini.google.com/'],
+    ['Perplexity', 'https://www.perplexity.ai/']
+  ]) {
+    assert.ok(html.includes(`href="${url}" target="_blank" rel="noopener noreferrer" data-research-provider="${provider}"`));
+  }
+  assert.match(html, /Web search is required for reliable results\. Deep Research is recommended where available\. Availability and usage limits depend on your AI provider and subscription\./);
+  assert.doesNotMatch(html, /enable Deep Research mode in Gemini/);
   assert.ok(!print.includes('<div class="research-action-row">'));
   assert.ok(!print.includes('<dialog class="match-dialog research-dialog"'));
   assert.ok(!OSS_RESEARCH_PROMPT.includes(resume.basics.summary));
@@ -33,12 +42,16 @@ test('research dialog copies its independent prompt and tracks content-free even
   const events = [];
   const handlers = {};
   const copied = [];
+  const providerLinks = ['ChatGPT', 'Gemini', 'Perplexity'].map(provider => ({
+    dataset: { researchProvider: provider },
+    addEventListener(name, handler) { handlers[`provider:${provider}:${name}`] = handler; }
+  }));
   const elements = Object.fromEntries(['research-dialog', 'open-research', 'close-research',
     'research-feedback', 'research-prompt-details', 'research-prompt', 'copy-research'].map(id => [id, {
     textContent: '', open: false,
     addEventListener(name, handler) { handlers[`${id}:${name}`] = handler; },
     showModal() { this.open = true; }, close() { this.open = false; }, focus() { this.focused = true; },
-    querySelector() { return { addEventListener(name, handler) { handlers[`provider:${name}`] = handler; } }; }
+    querySelectorAll() { return providerLinks; }
   }]));
   vm.runInNewContext(script, {
     document: { getElementById: id => elements[id] },
@@ -52,14 +65,15 @@ test('research dialog copies its independent prompt and tracks content-free even
   elements['research-prompt-details'].open = true;
   handlers['research-prompt-details:toggle']();
   await handlers['copy-research:click']();
-  handlers['provider:click']({ currentTarget: { dataset: { researchProvider: 'Gemini' } } });
+  for (const provider of ['ChatGPT', 'Gemini', 'Perplexity']) handlers[`provider:${provider}:click`]();
   handlers['research-dialog:close']();
   assert.deepEqual(copied, [OSS_RESEARCH_PROMPT]);
   assert.equal(elements['open-research'].focused, true);
   assert.equal(elements['research-prompt-details'].open, false);
   assert.deepEqual(events.map(([name]) => name), [
-    'oss-research-open', 'oss-research-prompt-expand', 'oss-research-prompt-copy', 'oss-research-provider-click'
+    'oss-research-open', 'oss-research-prompt-expand', 'oss-research-prompt-copy',
+    'oss-research-provider-click', 'oss-research-provider-click', 'oss-research-provider-click'
   ]);
-  assert.equal(events[3][1].provider, 'Gemini');
+  assert.deepEqual(events.slice(3).map(([, data]) => data.provider), ['ChatGPT', 'Gemini', 'Perplexity']);
   assert.ok(!JSON.stringify(events).includes(OSS_RESEARCH_PROMPT));
 });

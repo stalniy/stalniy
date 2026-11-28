@@ -30,6 +30,32 @@ Investigate and assess:
 
 Consider the technological context in which older contributions were made. Do not evaluate historical engineering decisions exclusively against modern standards.
 
+## Mandatory research procedure
+
+This task requires live web research. Do not produce an assessment based solely on your existing knowledge or training data.
+
+Before drawing conclusions:
+
+1. Access and inspect the provided sources.
+2. Discover additional relevant sources independently.
+3. Examine specific source code, commits, pull requests, issues, technical discussions, and publications.
+4. Investigate third-party references, dependencies, integrations, and adoption.
+5. Verify project versions, dates, technical details, and the current status of implementations.
+6. Explore contributions beyond the candidate's most prominent projects.
+
+For each substantive finding, provide a direct link to the specific artifact supporting it, rather than merely linking to a repository or profile homepage.
+
+Distinguish between:
+- Implemented and released functionality.
+- Experimental implementations.
+- Planned work.
+- Third-party contributions.
+- Your own interpretations.
+
+Do not claim to have examined a source unless you actually accessed its contents.
+
+If live web research is unavailable, stop and inform the user that a reliable research assessment requires an AI assistant with web research capabilities. Do not substitute a knowledge-based assessment.
+
 ## Evidence and evaluation rules
 
 - Prioritize primary sources, including source code, commit history, pull requests, issues, documentation, and original publications.

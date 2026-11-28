@@ -92,7 +92,10 @@ mark { background: #e0f2eb; color: inherit; border-bottom: 1px solid #598878; }
   .research-dialog details { margin-bottom: 16px; }
   .research-dialog summary { width: fit-content; color: #215347; font-weight: 600; cursor: pointer; }
   .research-dialog pre { max-height: 240px; overflow: auto; margin: 10px 0 0; padding: 12px; border: 1px solid #d5dce2; border-radius: 6px; background: #f7faf9; font: 9pt/1.5 ui-monospace, SFMono-Regular, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
-  .research-provider { display: inline-flex; align-items: center; min-height: 44px; padding: 10px 16px; margin-bottom: 14px; border: 1px solid #215347; border-radius: 999px; color: #215347; font: 600 10pt/1.2 Inter, Arial, sans-serif; text-decoration: none; }
+  .research-steps { margin: 0 0 16px; padding-left: 22px; line-height: 1.45; }
+  .research-steps li + li { margin-top: 4px; }
+  .research-providers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 14px; }
+  .research-provider { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 8px; border: 1px solid #215347; border-radius: 999px; color: #215347; font: 600 10pt/1.2 Inter, Arial, sans-serif; text-decoration: none; }
   .research-provider:hover { background: #e0f2eb; }
   .research-dialog .research-note { color: #596b82; font-size: 9pt; }
 }
@@ -107,6 +110,7 @@ mark { background: #e0f2eb; color: inherit; border-bottom: 1px solid #598878; }
 @media screen and (max-width: 380px) {
   .match-label { display: none; }
   .match-label-short { display: inline; }
+  .research-providers { grid-template-columns: 1fr; }
 }
 @media print {
   .keyword-toolbar, .cv-actions, .match-dialog, .research-action-row { display: none !important; }

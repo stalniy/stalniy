@@ -225,11 +225,15 @@ function researchUi() {
     <h2 id="research-title">Research my open-source contributions</h2>
     <p id="research-description">Independently evaluate my engineering expertise, technical contributions, and open-source impact using publicly available evidence.</p>
     <details id="research-prompt-details"><summary>View research prompt</summary><pre id="research-prompt"></pre></details>
+    <ol class="research-steps"><li>Copy the research prompt.</li><li>Open your preferred AI assistant with web research enabled.</li><li>Paste the prompt and start research.</li></ol>
     <button type="button" class="match-copy" id="copy-research">Copy research prompt</button>
     <p class="match-feedback" id="research-feedback" role="status" aria-live="polite"></p>
-    <p>For the most thorough assessment, enable Deep Research mode in Gemini and paste the copied prompt.</p>
-    <a class="research-provider" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" data-research-provider="Gemini">Open Gemini</a>
-    <p class="research-note">The prompt also works with other AI assistants that support web research.</p>
+    <div class="research-providers" role="group" aria-label="Choose an AI assistant">
+      <a class="research-provider" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" data-research-provider="ChatGPT">ChatGPT</a>
+      <a class="research-provider" href="https://gemini.google.com/" target="_blank" rel="noopener noreferrer" data-research-provider="Gemini">Gemini</a>
+      <a class="research-provider" href="https://www.perplexity.ai/" target="_blank" rel="noopener noreferrer" data-research-provider="Perplexity">Perplexity</a>
+    </div>
+    <p class="research-note">Web search is required for reliable results. Deep Research is recommended where available. Availability and usage limits depend on your AI provider and subscription.</p>
   </div>
 </dialog>
 <script>(() => {
@@ -255,8 +259,8 @@ function researchUi() {
       feedback.textContent = 'Could not copy automatically. Check browser clipboard permissions and try again.';
     }
   });
-  dialog.querySelector('[data-research-provider]').addEventListener('click', event =>
-    track('oss-research-provider-click', { provider: event.currentTarget.dataset.researchProvider }));
+  dialog.querySelectorAll('[data-research-provider]').forEach(link => link.addEventListener('click', () =>
+    track('oss-research-provider-click', { provider: link.dataset.researchProvider })));
 })();</script>`;
 }
 
