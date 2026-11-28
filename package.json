@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/stalniy/stalniy/issues"
   },
-  "homepage": "https://github.com/stalniy/stalniy#readme"
+  "homepage": "https://github.com/stalniy/stalniy#readme",
+  "devDependencies": {
+    "wrangler": "^4.166.0"
+  }
 }

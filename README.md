@@ -13,7 +13,7 @@ Additionally, I've authored **100+ technical blog posts** and have a successful 
 - 🔐 **[CASL](https://casl.js.org)** — creator of the authorization library that helps developers define what users can do.
 - ☁️ **[Akash Network](https://github.com/akash-network/console)** — built the console, chain-sdk and infrastructure that make decentralized compute accessible.
 
-Do you need more information about me? [Give this link to your agent](https://stalniy.github.io/stalniy/resume.html) and ask it about my full experience. Additionally, you can also ask it to search through my [public GitHub repositories](https://github.com/stalniy?tab=repositories) and contributions to projects linked in my resume, then share insights about my work with links to the code, pull requests, or commits supporting them.
+Do you need more information about me? [Give this link to your agent](https://sstotskyi.dev) and ask it about my full experience. Additionally, you can also ask it to search through my [public GitHub repositories](https://github.com/stalniy?tab=repositories) and contributions to projects linked in my resume, then share insights about my work with links to the code, pull requests, or commits supporting them.
 
 ![Node](https://aleen42.github.io/badges/src/node.svg)
 ![JavaScript](https://aleen42.github.io/badges/src/javascript.svg)
